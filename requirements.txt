@@ -2,3 +2,5 @@ asgiref==3.5.0
 Django==4.0.2
 python-dotenv==0.19.2
 sqlparse==0.4.2
+django-allauth==0.48.0
+slugify==0.0.1
