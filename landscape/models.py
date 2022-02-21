@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 from slugify import slugify
 import json
+from authentication.models import User
 from utils.utils import Base
 # Create your models here.
 class Landscape(Base):
@@ -25,3 +26,15 @@ class Landscape(Base):
         if not self.slug:
             self.slug = slugify(self.name)
         super(Landscape,self).save(*args, **kwargs)
+
+class Review(Base):
+    title = models.CharField(max_length=500)
+    description = models.TextField(blank=True)
+    rating = models.IntegerField
+    visit_date = models.DateTimeField(auto_now_add=True)
+    images = models.TextField(blank=True)
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+    landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE)
+
+    def __str__(self):
+        return self.title
