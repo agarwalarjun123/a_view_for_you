@@ -1,0 +1,21 @@
+{% extends 'landscape/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Add a review
+{% endblock %}
+
+{% block body_block %}
+    <form id="page_form" method="post" action="{% url 'landscape:add_review' landscape.slug %}">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}
+        {% endfor %}
+        <input type="submit" name="submit" value="Submit" />
+    </form>
+{% endblock %}

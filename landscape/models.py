@@ -28,7 +28,8 @@ class Landscape(Base):
         super(Landscape,self).save(*args, **kwargs)
 
 class Review(Base):
-    title = models.CharField(max_length=500)
+    TITLE_MAX_LENGTH = 500
+    title = models.CharField(max_length=TITLE_MAX_LENGTH)
     description = models.TextField(blank=True)
     rating = models.IntegerField
     visit_date = models.DateTimeField(auto_now_add=True)

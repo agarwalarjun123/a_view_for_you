@@ -1,0 +1,20 @@
+{% extends 'landscape/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    Landscapes list
+{% endblock %}
+
+{% block body_block %}
+    <ul> 
+    {% if landscapes %}
+        {% for l in landscapes %}
+            <li>
+                <a href="{% url 'landscape:show_landscape' l.slug %}">{{ l.name }}</a>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li><strong>There are no landscapes present.</strong></li>
+    {% endif %}
+    </ul>
+{% endblock %}

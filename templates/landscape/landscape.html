@@ -1,0 +1,33 @@
+{% extends 'landscape/base.html' %}
+{% load static %}
+
+{% block title_block %}
+    {{ landscape.name  }}
+{% endblock %}
+
+{% block body_block %}
+    <h3>Recent reviews</h3>
+
+    <a href="{% url 'landscape:add_review' landscape.slug %}"> Write a review</a>
+    {% if reviews %}
+        {% for r in reviews %}
+        <div class="container">
+            {% block review %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{ r.user_id }} authored a review</p>
+                        <h5>{{ r.title }}</h5>
+                        <p class="card-text">{{ r.description }}</p>
+                        <p class="card-text">{{ r.visit_date }}</p>
+                        <p class="card-text">{{ r.rating }}</p>
+                    </div>
+                </div>
+            {% endblock %}
+            <br />
+        </div>
+        {% endfor %}
+        {%else%}
+        <li><strong>There are no reviews.</strong></li>
+    {%endif%}
+
+{% endblock %}
