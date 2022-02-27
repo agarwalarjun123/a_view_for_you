@@ -18,8 +18,8 @@
     display: flex;
 }
 .search-result-container-image {
-    height: 120px;
-    width: 120px;
+    height: 150px;
+    width: 150px;
 }
 .search-result-container-image-container {
     padding: 8px;
