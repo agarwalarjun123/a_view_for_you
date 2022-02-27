@@ -3,3 +3,4 @@ venv/
 .env
 **/migrations/
 db.sqlite3
+http_ca.crt

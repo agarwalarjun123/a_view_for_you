@@ -21,13 +21,11 @@ class Manager(BaseUserManager):
         return user
 
     def create_superuser(self, email, username, password, **kwargs):
-        print(django_apps.get_app_config('authentication').type['PASSWORD_LOGIN'])
         user = self.create_user(
             email,
             username=username,
             password=password,
             type=django_apps.get_app_config('authentication').type['PASSWORD_LOGIN'], **kwargs)
-        print(user.password)
         user.is_staff = True
         user.is_superuser = True
         user.save()

@@ -1,19 +1,21 @@
+from base64 import encode
 from django.db import models
 from django.core.validators import RegexValidator
 from slugify import slugify
-import json
 from authentication.models import User
 from utils.utils import Base
+from django.apps import apps
 # Create your models here.
 class Landscape(Base):
-    name = models.CharField(max_length=200, validators=[
+    
+    name = models.CharField(max_length=apps.get_app_config('landscape').landscape_max_length, validators=[
                             RegexValidator('^[A-Za-z0-9 ]+$')])
     description = models.TextField()
     address = models.TextField(blank=True)
     slug = models.SlugField()
     images = models.TextField(blank=True)
-    activities = models.JSONField(default=json.dumps([]))
-    accessibilities = models.JSONField(default=json.dumps([]))
+    activities = models.JSONField(default=list)
+    accessibilities = models.JSONField(default=list)
     is_active = models.BooleanField(default=True)
     latitude = models.DecimalField(max_digits=10, decimal_places=6)
     longitude = models.DecimalField(max_digits=10, decimal_places=6)

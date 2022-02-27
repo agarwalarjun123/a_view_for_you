@@ -1,19 +1,43 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html> 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title> 
-            {% block title_block %}
-            {% endblock %}
-        </title>
-    </head> 
-    <body>
-        <div>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/jquery-star.min.js'%}"></script>
+    {% block script_block %}
+    {% endblock %}
+    <title>
+        {% block title_block %}
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <div>
+        <div class="header">
+            <div class="header-container">
+                <div class ='header-logo'>
+                    <img src="{% static 'images/logo.jpeg' %}" id = "logo" alt="logo">    
+                </div>
+                <div class ='header-button'>
+                    <button class="btn btn-outline-primary"> LOGIN </button>
+                </div>
+            </div>
+        </div>
+        <div class = 'body-container'>
             {% block body_block %}
             {% endblock %}
         </div>
-    </body>
+        
+    </div>
+</body>
+
 </html>

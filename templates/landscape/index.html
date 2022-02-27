@@ -5,9 +5,28 @@
     Landscapes list
 {% endblock %}
 
+{% block script_block %}
+    <link rel="stylesheet" href="{% static 'css/search.css'%}">
+    <script src="{% static 'js/search.js' %}"></script>
+{% endblock %}
+
 {% block body_block %}
+  <div class="mb-2">
+      <div class="search-container">
+        <div class="search-box">
+            <input type="text" class="form-control" id="query">
+        </div>
+        <div class="search-button">
+            <button id='search-button-search' class = 'btn btn-outline-primary'>SEARCH</button>
+        </div>
+      </div> 
+      <div class="search-results">
+      </div>
+  </div>
+
+    
     <ul> 
-    {% if landscapes %}
+    <!-- {% if landscapes %}
         {% for l in landscapes %}
             <li>
                 <a href="{% url 'landscape:show_landscape' l.slug %}">{{ l.name }}</a>
@@ -15,6 +34,6 @@
         {% endfor %}
     {% else %}
         <li><strong>There are no landscapes present.</strong></li>
-    {% endif %}
+    {% endif %} -->
     </ul>
 {% endblock %}

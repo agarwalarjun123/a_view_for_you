@@ -26,4 +26,4 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('auth/', include('authentication.urls')),
     path('landscape/', include('landscape.urls'))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

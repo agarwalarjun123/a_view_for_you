@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_DIR = os.path.join(BASE_DIR,'static')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -26,6 +27,12 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 ALLOWED_HOSTS = []
 
+
+
+
+ES_URL = os.getenv('ELASTIC_HOST','http://localhost:9200')
+ES_INDEX = 'landscape'
+ES_CERT_PATH = os.getenv('ES_CERT_PATH','http_ca.cert')
 
 # Application definition
 
@@ -127,14 +134,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
 
 #Static
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    STATIC_DIR,
 )
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+STATIC_URL = '/static/'
 #MEDIA
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
