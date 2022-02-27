@@ -4,3 +4,4 @@ python-dotenv==0.19.2
 sqlparse==0.4.2
 django-allauth==0.48.0
 slugify==0.0.1
+elasticsearch=8.0.0

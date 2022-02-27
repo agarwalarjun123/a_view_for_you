@@ -33,7 +33,7 @@ class Review(Base):
     TITLE_MAX_LENGTH = 500
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     description = models.TextField(blank=True)
-    rating = models.IntegerField
+    rating = models.FloatField(null=False, blank=True, default=5)
     visit_date = models.DateTimeField(auto_now_add=True)
     images = models.TextField(blank=True)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE)
