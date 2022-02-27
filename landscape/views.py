@@ -24,6 +24,8 @@ def show_landscape(request, landscape_name_slug):
         landscape = Landscape.objects.get(slug=landscape_name_slug)
         reviews = Review.objects.filter(
             landscape_id=landscape.id).order_by('-visit_date')[:5]
+        for r in reviews:
+            r.rating = roundRating(r.rating)
         context_dict['reviews'] = reviews
         context_dict['landscape'] = landscape
     except Landscape.DoesNotExist:
@@ -90,3 +92,11 @@ def search(request):
         result = [data['_source'] for data in result]
         response = JsonResponse({"data": result, 'is_success': True})
         return response
+
+def roundRating(rating):
+    number = int(rating*100/5)
+    hundreds = (number % 1000) // 100
+    tens = (number % 100) // 10
+    percentage = "" if hundreds == 0 else "1"
+    percentage += str(tens) +"0"
+    return percentage
