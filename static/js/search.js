@@ -1,6 +1,7 @@
 $(()=> {
     search()
-    $("#search-button-search").on('click',()=>{
+    $("#search-form").on('submit',(e)=>{
+        e.preventDefault()
         search($("#query").val())
     })
 })

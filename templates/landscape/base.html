@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load socialaccount %}
 
 <html>
 
@@ -16,6 +17,7 @@
     {% endblock %}
     <title>
         {% block title_block %}
+        A VIEW FOR YOU
         {% endblock %}
     </title>
 </head>
@@ -25,10 +27,13 @@
         <div class="header">
             <div class="header-container">
                 <div class ='header-logo'>
-                    <img src="{% static 'images/logo.jpeg' %}" id = "logo" alt="logo">    
+                    <a id = 'header-title' href= "{% url 'landscape:index' %}"><img src="{% static 'images/logo.jpeg' %}" id = "logo" alt="logo" > <span>A VIEW FOR YOU</span></a>   
                 </div>
                 <div class ='header-button'>
-                    <button class="btn btn-outline-primary"> LOGIN </button>
+                    <form method = 'post' action = "{% provider_login_url 'google' %}">
+                        {% csrf_token %}
+                        <input type="submit" value="LOGIN" class = "btn btn-outline-primary">
+                    </form>
                 </div>
             </div>
         </div>

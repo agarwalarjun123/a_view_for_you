@@ -20,8 +20,6 @@ def read_from_db():
         })
     landscapes = Landscape.objects.all()
     for landscape in landscapes:
-        landscape.activities = []
-        landscape.save()
         es.index(index=settings.ES_INDEX, document=model_to_dict(landscape, fields=[
                  'id', 'name', 'description', 'address', 'slug', 'images', 'activities', 'accessibilties', 'is_active', 'latitude', 'created_at', 'updated_at']))
 

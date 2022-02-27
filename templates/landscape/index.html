@@ -1,9 +1,6 @@
 {% extends 'landscape/base.html' %}
 {% load static %}
 
-{% block title_block %}
-    Landscapes list
-{% endblock %}
 
 {% block script_block %}
     <link rel="stylesheet" href="{% static 'css/search.css'%}">
@@ -17,7 +14,10 @@
             <input type="text" class="form-control" id="query">
         </div>
         <div class="search-button">
-            <button id='search-button-search' class = 'btn btn-outline-primary'>SEARCH</button>
+            <form id = 'search-form'>
+                <input type = 'submit' id='search-button-search' class = 'btn btn-primary' value = 'SEARCH'>
+            </form>
+            
         </div>
       </div> 
       <div class="search-results">
