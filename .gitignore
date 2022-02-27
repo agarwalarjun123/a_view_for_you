@@ -4,3 +4,4 @@ venv/
 **/migrations/
 db.sqlite3
 http_ca.crt
+.DS_Store
