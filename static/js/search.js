@@ -24,7 +24,6 @@ const search = (q = '', filters = {}) => {
                 $(".search-results").append('<center><span class = "no-result-label">No Results</span></center>')
             }
             data.data.forEach(landscape => {
-                landscape.rating = Math.random() * 5
                 appendResult(landscape)
             });
             
@@ -40,14 +39,13 @@ const appendResult = (result) => {
         <div class = 'search-result-container-content'>
             <h4>${result.name}</h4>
             <div class="my-rating-${result.id}" style = 'display:inline; padding: 2px;'></div>
-            <span style>100 reviews</span>
+            <span style>${result?.review?.count} reviews</span>
             <div class='address'>${result.address}</div>
-
             <div class = 'search-result-container-content-description'>${result.description.length > 300 ? result.description.slice(0,300) + '...' : result.description }</div>
         </div>   
     </div>`)
     $(`.my-rating-${result.id}`).starRating({
-        initialRating: result.rating,
+        initialRating: result?.review?.average_rating,
         readOnly: true,
 
     });
