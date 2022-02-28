@@ -3,29 +3,69 @@
 
 
 {% block script_block %}
-    <link rel="stylesheet" href="{% static 'css/search.css'%}">
-    <script src="{% static 'js/search.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/search.css'%}">
+<script src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 
 {% block body_block %}
-  <div class="mb-2">
-      <div class="search-container">
-        <div class="search-box">
-            <input type="text" class="form-control" id="query">
+<div class="mb-2">
+    <div class="search-container">
+        <div id='search-container-filter-container'>
+            <div class='search-container-filter'>
+                <h6>Activites</h6>
+                <div class="form-check">
+                    <input class="form-check-input activities" type="checkbox" value="boating" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        boating
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input activities" type="checkbox" value="hiking" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        hiking
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input activities" type="checkbox" value="fishing" id="flexCheckChecked">
+                    <label class="form-check-label" for="flexCheckChecked">
+                        fishing
+                    </label>
+                </div>
+            </div>
+            <div class='search-container-filter'>
+                <h6>Accessibilities</h6>
+                <div class="form-check">
+                    <input class="form-check-input accessibilities" type="checkbox" value="wheelchair" id="flexCheckDefault">
+                    <label class="form-check-label" for="inputlabel">
+                        wheelchair
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input accessibilities" type="checkbox" value="hiking" id="flexCheckChecked">
+                    <label class="form-check-label" for="inputlabel">
+                        hiking
+                    </label>
+                </div>
+            </div>
         </div>
-        <div class="search-button">
-            <form id = 'search-form'>
-                <input type = 'submit' id='search-button-search' class = 'btn btn-primary' value = 'SEARCH'>
-            </form>
-            
-        </div>
-      </div> 
-      <div class="search-results">
-      </div>
-  </div>
 
-    
-    <ul> 
+
+        <div class="search-box">
+            <div id='search-box-container'>
+                <input type="text" class="form-control" id="query">
+            </div>
+            <div>
+                <button id='search-button-search' class='btn btn-primary' value='SEARCH'>SEARCH</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="search-results">
+    </div>
+</div>
+
+
+<ul>
     <!-- {% if landscapes %}
         {% for l in landscapes %}
             <li>
@@ -35,5 +75,5 @@
     {% else %}
         <li><strong>There are no landscapes present.</strong></li>
     {% endif %} -->
-    </ul>
+</ul>
 {% endblock %}
