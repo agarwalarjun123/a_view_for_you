@@ -8,10 +8,6 @@ from landscape.forms import ReviewForm
 
 
 def index(request):
-    # context_dict = {}
-    # landscapes = Landscape.objects.all().order_by('name')[:5]
-    # context_dict['landscapes'] = landscapes
-    # print("**Landscapes")
     if request.method == 'GET':
         return render(request, 'landscape/index.html')
 
@@ -70,26 +66,42 @@ def add_review(request, landscape_name_slug):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q', '')
-        print(query)
-        es = django_apps.get_app_config('landscape').es
-        result = es.search(index=settings.ES_INDEX, query={
+        activities = request.GET.get('activities').split(',') if request.GET.get('activities') and len(request.GET.get('activities').split(',')) > 0 else []
+        accessibilities = request.GET.get('accessibilities').split(',') if request.GET.get('accessibilities') and len(request.GET.get('accessibilities').split(',')) > 0 else []
+        ## base query
+        es_query = {
             'bool': {
-                'must': {
+                'must': [{
                     'multi_match': {
                         'fields': ['*'],
                         'query': query
                     }
                 },
-                'filter': {
-                    'term': {
-                        'is_active': True
-                    }
-                }
+                    {
+                        'term': {
+                            'is_active': True,
+                        }
+                }],
             }
 
-        })
-        result = result.body['hits']['hits']
-        result = [data['_source'] for data in result]
+        }
+        additional_filters = len(activities)> 0 or len(accessibilities)>0
+        es_query['bool']['should'] = [] if additional_filters else None
+        es_query['bool']['minimum_should_match'] = 1 if additional_filters else None
+        ## add the filter to the query if exists
+        if len(activities) > 0:
+            es_query['bool']['should'].append({
+                'terms': {
+                    'activities': activities,
+                }})
+        if len(accessibilities) > 0:
+            es_query['bool']['should'].append({
+                'terms': {
+                    'accessibilities': accessibilities,
+                }})
+        es = django_apps.get_app_config('landscape').es
+        result = es.search(index=settings.ES_INDEX, query=es_query)
+        result = [data['_source'] for data in result.body['hits']['hits']]
         response = JsonResponse({"data": result, 'is_success': True})
         return response
 

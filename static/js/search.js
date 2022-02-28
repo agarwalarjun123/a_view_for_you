@@ -1,8 +1,9 @@
 $(()=> {
     search()
-    $("#search-form").on('submit',(e)=>{
+    $("#search-button-search").on('click',(e)=>{
+        const filters = getFilters()
         e.preventDefault()
-        search($("#query").val())
+        search($("#query").val(),filters)
     })
 })
 
@@ -19,10 +20,14 @@ const search = (q = '', filters = {}) => {
         },
         success : (data) => {
             $(".search-results").empty()
+            if (data?.data?.length === 0){
+                $(".search-results").append('<center><span class = "no-result-label">No Results</span></center>')
+            }
             data.data.forEach(landscape => {
                 landscape.rating = Math.random() * 5
                 appendResult(landscape)
             });
+            
         }
     })
 }
@@ -46,4 +51,26 @@ const appendResult = (result) => {
         readOnly: true,
 
     });
+}
+
+const getFilters = () => {
+    const activities = []
+    const accessibilities = []
+    let filters = {}
+    $(".activities:checked").each(function() {
+       activities.push($(this).val())
+    })
+    $(".accessibilities:checked").each(function() {
+        accessibilities.push($(this).val())
+     })
+    filters = accessibilities.length > 0 ?{
+        ...filters,
+        accessibilities: accessibilities.join(',')
+    } : filters
+    filters = activities.length > 0 ?{
+        ...filters,
+        activities: activities.join(',')
+    } : filters
+    return filters
+
 }
