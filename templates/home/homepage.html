@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block script_block %}
+<link rel="stylesheet" href="{% static 'css/search.css'%}">
+<script src="{% static 'js/search.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+<div 
+style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
+    <div class="search-box">
+        <div id='search-box-container'>
+            <input type="text" class="form-control" id="query">
+        </div>
+        <div>
+            <button id='search-button-search' class='btn btn-primary' value='SEARCH'>SEARCH</button>
+        </div>
+    </div>
+</div>
+<br>
+    <h4>Most Visited Landscapes</h4>
+</br>
+<br>
+    <h4>Located near you...</h4>
+<br/>
+{% endblock %}
+
+
+
+
+
+
+
+    
+
+
+
+
+
+ 
+
