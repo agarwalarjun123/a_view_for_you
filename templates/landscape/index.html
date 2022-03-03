@@ -13,39 +13,25 @@
         <div id='search-container-filter-container'>
             <div class='search-container-filter'>
                 <h6>Activites</h6>
+                {% for activity in activities %}
                 <div class="form-check">
-                    <input class="form-check-input activities" type="checkbox" value="boating" id="flexCheckDefault">
+                    <input class="form-check-input activities" type="checkbox" value="{{activity}}" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
-                        boating
+                        {{activity}}
                     </label>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input activities" type="checkbox" value="hiking" id="flexCheckChecked">
-                    <label class="form-check-label" for="flexCheckChecked">
-                        hiking
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input activities" type="checkbox" value="fishing" id="flexCheckChecked">
-                    <label class="form-check-label" for="flexCheckChecked">
-                        fishing
-                    </label>
-                </div>
+                {% endfor %}
             </div>
             <div class='search-container-filter'>
                 <h6>Accessibilities</h6>
-                <div class="form-check">
-                    <input class="form-check-input accessibilities" type="checkbox" value="wheelchair" id="flexCheckDefault">
-                    <label class="form-check-label" for="inputlabel">
-                        wheelchair
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input accessibilities" type="checkbox" value="hiking" id="flexCheckChecked">
-                    <label class="form-check-label" for="inputlabel">
-                        hiking
-                    </label>
-                </div>
+                {% for access in accessibilities %}
+                    <div class="form-check">
+                        <input class="form-check-input accessibilities" type="checkbox" value="{{access}}" id="flexCheckDefault">
+                        <label class="form-check-label" for="inputlabel">
+                            {{access}}
+                        </label>
+                    </div>
+                {% endfor %}
             </div>
         </div>
 

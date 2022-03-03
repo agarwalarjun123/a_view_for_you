@@ -8,8 +8,12 @@ from landscape.forms import ReviewForm
 
 
 def index(request):
+    context_dict = {}
+    context_dict['activities'] = ["Boating", "Camping", "Fishing", "Hiking", "Swimming" ]
+    context_dict['accessibilities'] = ["Kid's area", "Parking", "Pet friendly", "Toilets", "Wheelchair"]
+    
     if request.method == 'GET':
-        return render(request, 'landscape/index.html')
+        return render(request, 'landscape/index.html', context=context_dict)
 
 
 def show_landscape(request, landscape_name_slug):
