@@ -1,8 +1,13 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.apps import apps as django_apps
 from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
 from allauth.socialaccount.models import SocialAccount
+from allauth.socialaccount.signals import pre_social_login
+from django.shortcuts import redirect
+from allauth.exceptions import ImmediateHttpResponse
 
 class Manager(BaseUserManager):
     def create_user(self, email, username, password, type, **kwargs):
@@ -33,9 +38,10 @@ class Manager(BaseUserManager):
 
 
 class User(AbstractUser):
-    profile_image = models.FileField(upload_to='media/', blank=True)
+    profile_image = models.ImageField(upload_to='profile_images', blank=True)
     type = models.CharField(max_length=50, choices=django_apps.get_app_config(
-        'authentication').type.items())
+        'authentication').type.items(), default = django_apps.get_app_config(
+        'authentication').type['PASSWORD_LOGIN'] )
     username = models.CharField(max_length=200)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -53,6 +59,14 @@ def login_handler(sender, user, request, **kwargs):
     user.profile_image = user_data['picture']
     user.type = django_apps.get_app_config('authentication').type['GOOGLE_LOGIN']
     user.save()
-    
+
+@receiver(pre_social_login)
+def link_to_local_user(sender, request, sociallogin, **kwargs):
+    email_address = sociallogin.account.extra_data['email']
+    print(email_address)
+    users = User.objects.filter(email = email_address)
+    if len(users) > 0 and users[0].type == django_apps.get_app_config('authentication').type['PASSWORD_LOGIN']:
+        raise ImmediateHttpResponse(redirect('auth:login'))
+
 
 user_logged_in.connect(login_handler)

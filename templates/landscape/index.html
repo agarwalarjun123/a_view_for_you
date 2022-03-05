@@ -10,14 +10,14 @@
 {% block body_block %}
 <div class="mb-2">
     <div class="search-container">
-        <div id='search-container-filter-container'>
+        <div class = "collapse" id='search-container-filter-container'>
             <div class='search-container-filter'>
                 <h6>Activites</h6>
                 {% for activity in activities %}
-                <div class="form-check">
-                    <input class="form-check-input activities" type="checkbox" value="{{activity}}" id="flexCheckDefault">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input activities" type="checkbox" value="{{activity.name}}" id="flexCheckDefault">
                     <label class="form-check-label" for="flexCheckDefault">
-                        {{activity}}
+                        {{activity.display_name}}
                     </label>
                 </div>
                 {% endfor %}
@@ -25,10 +25,10 @@
             <div class='search-container-filter'>
                 <h6>Accessibilities</h6>
                 {% for access in accessibilities %}
-                    <div class="form-check">
-                        <input class="form-check-input accessibilities" type="checkbox" value="{{access}}" id="flexCheckDefault">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input accessibilities" type="checkbox" value="{{access.name}}" id="flexCheckDefault">
                         <label class="form-check-label" for="inputlabel">
-                            {{access}}
+                            {{access.display_name}}
                         </label>
                     </div>
                 {% endfor %}
