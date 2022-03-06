@@ -20,13 +20,10 @@ STATIC_DIR = os.path.join(BASE_DIR,'static')
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.getenv('ENV') == 'DEVELOPMENT' else True
-
+DEBUG = False if os.getenv('ENV') == 'PRODUCTION' else True
 #Templates folder
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-
 ALLOWED_HOSTS = []
-
 
 
 
@@ -49,7 +46,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google', 
+    'allauth.socialaccount.providers.google',
 ]
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -90,11 +87,21 @@ WSGI_APPLICATION = 'a_view_for_you.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DATABASE_CONF = {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': os.getenv('DB'),
+    'USER': os.getenv('USER'),
+    'PASSWORD': os.getenv('PASSWORD'),
+    'HOST': os.getenv('HOST'),
+    'PORT': 3306
+} if os.getenv('ENV') == 'PRODUCTION' else {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+}
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': DATABASE_CONF
 }
 
 
@@ -160,6 +167,10 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET= True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

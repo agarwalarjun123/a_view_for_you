@@ -5,13 +5,12 @@ from django.apps import apps as django_apps
 from landscape.models import Landscape, Review
 from authentication.models import User
 from landscape.forms import ReviewForm
-
+from django.apps import apps
 
 def index(request):
     context_dict = {}
-    context_dict['activities'] = ["Boating", "Camping", "Fishing", "Hiking", "Swimming" ]
-    context_dict['accessibilities'] = ["Kid's area", "Parking", "Pet friendly", "Toilets", "Wheelchair"]
-    
+    context_dict['activities'] = apps.get_app_config('landscape').activities
+    context_dict['accessibilities'] = apps.get_app_config('landscape').accessibilities
     if request.method == 'GET':
         return render(request, 'landscape/index.html', context=context_dict)
 

@@ -13,6 +13,7 @@
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/jquery-star.min.js'%}"></script>
+    
     {% block script_block %}
     {% endblock %}
     <title>
@@ -27,7 +28,7 @@
         <div class="header">
             <div class="header-container">
                 <div class ='header-logo'>
-                    <a id = 'header-title' href= "{% url 'landscape:index' %}"><img src="{% static 'images/logo.jpeg' %}" id = "logo" alt="logo" > <span>A VIEW FOR YOU</span></a>   
+                    <a id = 'header-title' href= "{% url 'home:homepage' %}"><img src="{% static 'images/logo.jpeg' %}" id = "logo" alt="logo" > <span>A VIEW FOR YOU</span></a>   
                 </div>
                 <div class ='header-button'>
                     <form method = 'post' action = "{% provider_login_url 'google' %}">

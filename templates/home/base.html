@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="{% static 'css/base.css'%}">
     <script src="{% static 'js/jquery.min.js'%}"></script>
@@ -26,22 +26,22 @@
     <div>
         <div class="header">
             <div class="header-container">
-                <div class ='header-logo'>
-                    <a id = 'header-title' href= "{% url 'landscape:index' %}"><img src="{% static 'images/logo.jpeg' %}" id = "logo" alt="logo" > <span>A VIEW FOR YOU</span></a>   
+                <div class='header-logo'>
+                    <a id='header-title' href="{% url 'landscape:index' %}"><img src="{% static 'images/logo.jpeg' %}"
+                            id="logo" alt="logo"> <span>A VIEW FOR YOU</span></a>
                 </div>
-                <div class ='header-button'>
-                    <form method = 'post' action = "{% provider_login_url 'google' %}">
-                        {% csrf_token %}
-                        <input type="submit" value="LOGIN/SIGNUP" class = "btn btn-outline-primary">
-                    </form>
+                <div class='header-button'>
+
+                    <a href="{% url 'auth:login' %}" class="btn btn-outline-primary">LOGIN/SIGNUP</a>
+
                 </div>
             </div>
         </div>
-        <div class = 'body-container'>
+        <div class='body-container'>
             {% block body_block %}
             {% endblock %}
         </div>
-        
+
     </div>
 </body>
 
