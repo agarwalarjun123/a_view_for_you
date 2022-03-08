@@ -1,4 +1,3 @@
-from email.policy import default
 from django.forms.models import model_to_dict
 
 import os
@@ -20,13 +19,26 @@ def read_from_db():
         es.delete_by_query(index=settings.ES_INDEX, query={
             'match_all': {}
         })
+    es.indices.put_mapping( body = {
+            'properties': {
+                'location': {
+                   'type': 'geo_point'
+                }
+        }
+    },index = settings.ES_INDEX)
     landscapes = Landscape.objects.all()
     for landscape in landscapes:
-        landscape = model_to_dict(landscape, fields=[
-                 'id', 'name', 'description', 'address', 'slug', 'images', 'activities', 'accessibilities', 'is_active', 'latitude', 'created_at', 'updated_at'])
-        review = read_review(landscape['id'])
-        landscape['review'] = review
-        es.index(index=settings.ES_INDEX, document=landscape)
+
+        landscape_doc = model_to_dict(landscape, fields=[
+                 'id', 'name', 'description', 'address', 'slug', 'images', 'activities', 'accessibilities', 'is_active', 'created_at', 'updated_at'])
+        landscape_doc['location'] = {
+            'lat': landscape.latitude,
+            'lon': landscape.longitude
+        }
+        print(landscape_doc)
+        review = read_review(landscape_doc['id'])
+        landscape_doc['review'] = review
+        es.index(index=settings.ES_INDEX, document=landscape_doc)
 
 def read_review(landscape_id):
     result = Review.objects.filter(landscape_id = landscape_id).aggregate(average_rating = Avg('rating',default = 0), count = Count('id'))

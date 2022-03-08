@@ -26,7 +26,6 @@ def login(request):
         username = request.POST['email']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        print(user.is_active)
         if user and user.is_active:
             login_session(request, user)
             return redirect('home:homepage')

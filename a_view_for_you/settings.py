@@ -151,6 +151,9 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+APPEND_SLASH = True
+
 AUTH_USER_MODEL = 'authentication.User'
 
 # Default primary key field type

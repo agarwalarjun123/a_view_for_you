@@ -7,11 +7,16 @@ from authentication.models import User
 from landscape.forms import ReviewForm
 from django.apps import apps
 
+
 def index(request):
+
     context_dict = {}
     context_dict['activities'] = apps.get_app_config('landscape').activities
-    context_dict['accessibilities'] = apps.get_app_config('landscape').accessibilities
+    context_dict['accessibilities'] = apps.get_app_config(
+        'landscape').accessibilities
     if request.method == 'GET':
+        if request.GET.get('q'):
+            context_dict['q'] = request.GET.get('q')
         return render(request, 'landscape/index.html', context=context_dict)
 
 
@@ -69,9 +74,12 @@ def add_review(request, landscape_name_slug):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q', '')
-        activities = request.GET.get('activities').split(',') if request.GET.get('activities') and len(request.GET.get('activities').split(',')) > 0 else []
-        accessibilities = request.GET.get('accessibilities').split(',') if request.GET.get('accessibilities') and len(request.GET.get('accessibilities').split(',')) > 0 else []
-        ## base query
+        location = {k: float(request.GET.get(k))
+                    for k in ['lat', 'lon']} if request.GET.get('lat') else None
+        activities = request.GET.get('activities').split(',') if request.GET.get(
+            'activities') and len(request.GET.get('activities').split(',')) > 0 else []
+        accessibilities = request.GET.get('accessibilities').split(',') if request.GET.get(
+            'accessibilities') and len(request.GET.get('accessibilities').split(',')) > 0 else []
         es_query = {
             'bool': {
                 'must': [{
@@ -88,10 +96,17 @@ def search(request):
             }
 
         }
-        additional_filters = len(activities)> 0 or len(accessibilities)>0
+        if location:
+            es_query['bool']['must'].append({
+                'geo_distance': {
+                    "distance": "200km",
+                         "location": location,
+                }   
+            })
+        additional_filters = len(activities) > 0 or len(accessibilities) > 0
         es_query['bool']['should'] = [] if additional_filters else None
         es_query['bool']['minimum_should_match'] = 1 if additional_filters else None
-        ## add the filter to the query if exists
+        # add the filter to the query if exists
         if len(activities) > 0:
             es_query['bool']['should'].append({
                 'terms': {
@@ -108,10 +123,11 @@ def search(request):
         response = JsonResponse({"data": result, 'is_success': True})
         return response
 
+
 def roundRating(rating):
     number = int(rating*100/5)
     hundreds = (number % 1000) // 100
     tens = (number % 100) // 10
     percentage = "" if hundreds == 0 else "1"
-    percentage += str(tens) +"0"
+    percentage += str(tens) + "0"
     return percentage
