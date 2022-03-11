@@ -6,7 +6,7 @@ from landscape.models import Landscape, Review
 from authentication.models import User
 from landscape.forms import ReviewForm
 from django.apps import apps
-
+from django.contrib.auth.decorators import login_required
 
 def index(request):
 
@@ -41,7 +41,7 @@ def show_landscape(request, landscape_name_slug):
     # Go render the response and return it to the client.
     return render(request, 'landscape/landscape.html', context=context_dict)
 
-
+@login_required()
 def add_review(request, landscape_name_slug):
     print("*ADD REVIEW")
     try:
@@ -99,7 +99,7 @@ def search(request):
         if location:
             es_query['bool']['must'].append({
                 'geo_distance': {
-                    "distance": "200km",
+                    "distance": django_apps.get_app_config('landscape').GEO_DISTANCE,
                          "location": location,
                 }   
             })
@@ -129,5 +129,4 @@ def roundRating(rating):
     hundreds = (number % 1000) // 100
     tens = (number % 100) // 10
     percentage = "" if hundreds == 0 else "1"
-    percentage += str(tens) + "0"
     return percentage

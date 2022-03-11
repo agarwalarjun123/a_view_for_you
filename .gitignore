@@ -5,3 +5,4 @@ venv/
 db.sqlite3
 http_ca.crt
 .DS_Store
+media/
