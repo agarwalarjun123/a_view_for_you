@@ -13,7 +13,7 @@ class Landscape(Base):
                             RegexValidator('^[A-Za-z0-9 ]+$')])
     description = models.TextField()
     address = models.TextField(blank=True)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     activities = models.JSONField(default=list, blank = True)
     accessibilities = models.JSONField(default=list, blank = True)
     is_active = models.BooleanField(default=True)
