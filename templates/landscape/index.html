@@ -1,9 +1,11 @@
-{% extends 'landscape/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
-
 
 {% block script_block %}
 <link rel="stylesheet" href="{% static 'css/search.css'%}">
+<script>
+    let q = "{{ q }}";
+</script>
 <script src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 

@@ -52,6 +52,7 @@ class LandscapeConfig(AppConfig):
         }
     ]
     landscape_max_length = 200
+    GEO_DISTANCE = '200km'
 
     def ready(self):
         from utils.utils import connect_es
