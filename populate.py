@@ -21,10 +21,11 @@ def populate_landscapes():
       "name": "Ben Nevis",
       "description": "Ben Nevis couldn't be any more dramatic, with a summit often veiled by clouds, and dustings of pure white snow. Once an enormous active volcano, it's now a silent giant watching over the glacial valleys and lochs of the land.",
       "address": "scotland",
-      "images": ["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/80/1e/29/loch-katrine.jpg?w=2000&h=-1&s=1"],
+      "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/80/1e/29/loch-katrine.jpg?w=2000&h=-1&s=1",
       "activities": [
         "fishing","hiking"
       ],
+      "images": ["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/80/1e/29/loch-katrine.jpg?w=2000&h=-1&s=1"],
       "accessibilities": [],
 
       "latitude": 80,
@@ -40,6 +41,7 @@ def populate_landscapes():
       "accessibilities": [
         "wheelchair"
       ],
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/80/1e/29/loch-katrine.jpg?w=2000&h=-1&s=1",
 
       "latitude": 80,
       "longitude": 90,
@@ -55,6 +57,7 @@ def populate_landscapes():
         "hiking",
         "fishing"
       ],
+      "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/80/1e/29/loch-katrine.jpg?w=2000&h=-1&s=1",
       "accessibilities": [
         "wheelchair"
       ],
@@ -66,6 +69,9 @@ def populate_landscapes():
     for landscape in landscapes:
         landscape_doc = {key: landscape[key] for key in list(set(landscape.keys()) & set(['name','description','activities','accessibilities','latitude','longitude']))}
         landscape_doc = Landscape(**landscape_doc)
+        if landscape['image']:
+            file,name = read_image_from_url(landscape['image'])
+            landscape_doc.image.save(name,file)
         landscape_doc.save()
         for image in landscape["images"]:
             file,name = read_image_from_url(image)

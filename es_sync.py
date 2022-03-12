@@ -5,7 +5,7 @@ import django
 # setting up environment and loading up models
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'a_view_for_you.settings')
 django.setup()
-from landscape.models import Landscape,Review
+from landscape.models import Landscape,Review, Photo
 from django.conf import settings
 from django.db.models import Avg,Count
 from utils.utils import connect_es
@@ -30,12 +30,12 @@ def read_from_db():
     for landscape in landscapes:
 
         landscape_doc = model_to_dict(landscape, fields=[
-                 'id', 'name', 'description', 'address', 'slug', 'images', 'activities', 'accessibilities', 'is_active', 'created_at', 'updated_at'])
+                 'id', 'name', 'description', 'address', 'slug', 'activities', 'accessibilities', 'is_active', 'created_at', 'updated_at'])
         landscape_doc['location'] = {
             'lat': landscape.latitude,
             'lon': landscape.longitude
         }
-        print(landscape_doc)
+        landscape_doc['image'] = settings.MEDIA_URL + landscape.image.name
         review = read_review(landscape_doc['id'])
         landscape_doc['review'] = review
         es.index(index=settings.ES_INDEX, document=landscape_doc)

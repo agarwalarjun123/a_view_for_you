@@ -87,7 +87,7 @@ const appendResult = (result) => {
   $(".search-results").append(`
     <div class = 'search-result-container'>
         <div class = 'search-result-container-image-container'>
-            <img class = 'search-result-container-image' src = 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/80/1e/29/loch-katrine.jpg?w=2000&h=-1&s=1'/>
+            <img class = 'search-result-container-image' src = '${result.image}'/>
         </div>
         <div class = 'search-result-container-content'>
             <h4>${result.name}</h4>

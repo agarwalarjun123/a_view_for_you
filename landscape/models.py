@@ -14,6 +14,7 @@ class Landscape(Base):
     description = models.TextField()
     address = models.TextField(blank=True)
     slug = models.SlugField(unique=True)
+    image = models.ImageField(upload_to='landscapes', null=True, blank=True)
     activities = models.JSONField(default=list, blank = True)
     accessibilities = models.JSONField(default=list, blank = True)
     is_active = models.BooleanField(default=True)
