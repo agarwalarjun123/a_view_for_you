@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.conf import settings
 from django.http import JsonResponse
 from django.apps import apps as django_apps
-from landscape.models import Landscape, Review
+from landscape.models import Landscape, Photo, Review
 from authentication.models import User
 from landscape.forms import ReviewForm
 from django.apps import apps
@@ -53,10 +53,12 @@ def add_review(request, landscape_name_slug):
         return redirect('/landscape/')
 
     form = ReviewForm()
-    if request.method == 'POST':
-        print("POST")
-        form = ReviewForm(request.POST)
+    error_message = None
 
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        images = request.FILES.getlist('images')
+        
         if form.is_valid():
             review = form.save(commit=False)
             review.landscape_id = landscape
@@ -64,10 +66,21 @@ def add_review(request, landscape_name_slug):
             # TODO: replace this for the logged user
             review.user_id = user
             review.save()
+
+            for image in images:
+                print("**Image added")
+                photo = Photo.objects.create(review_id =review, image = image)
+        
             return redirect('/landscape/')
-        else:
-            print(form.errors)
-    context_dict = {'form': form, 'landscape': landscape}
+        print(form.errors)
+        error_message = form.errors
+
+    context_dict = {}
+    context_dict['form'] = form
+    context_dict['landscape'] = landscape
+    context_dict['activities'] = apps.get_app_config('landscape').activities
+    context_dict['accessibilities'] = apps.get_app_config('landscape').accessibilities
+    context_dict['error_message'] = error_message
     return render(request, 'landscape/add_review.html', context=context_dict)
 
 

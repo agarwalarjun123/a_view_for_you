@@ -21,6 +21,10 @@
 <!-- Tempus Dominus Bootstrap 4 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+<!-- Select picker -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 {% endblock %}
 
 {% block title_block %}
@@ -28,12 +32,13 @@
 {% endblock %}
 
 {% block body_block %}
-    <h3>Recent reviews</h3>
+    <div style="margin: 3%">
+        <h3>Leave a review</h3>
 
-    <div style="margin: 5%">
-        <form id="page_form" method="post" action="{% url 'landscape:add_review' landscape.slug %}">
+        <form enctype="multipart/form-data" id="page_form" method="post" action="{% url 'landscape:add_review' landscape.slug %}">
+            {% csrf_token %}
             <div class="form-group">
-                <label for="lrating">Your rating:</label><br>
+                <label for="rating">Your rating:</label><br>
                 <div class="rating"> 
                     <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
                     <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
@@ -43,10 +48,10 @@
             </div>
 
             <div class="form-group">
-                <label for="ldate">Date of visit:</label><br>
+                <label for="visit_date">Date of visit:</label><br>
 
                 <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                    <input id="visit_date" name="visit_date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
                     <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -57,48 +62,48 @@
                     <div class="form-group">
                         <label>Activities:</label><br>
         
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                                Select activities
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#">Camping</a>
-                              <a class="dropdown-item" href="#">Hiking</a>
-                              <a class="dropdown-item" href="#">Swimming</a>
-                              <a class="dropdown-item" href="#">Trekking</a>
-                            </div>
-                        </div> 
+                        <select class="selectpicker" multiple data-live-search="true" id="activities" name="activities">
+                            {% for activity in activities %}
+                            <option value="{{activity.name}}">{{activity.display_name}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-group column">
                         <label>Facilities:</label><br>
         
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-                                Select facilities
-                            </button>
-                            <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Kids area</a>
-                            <a class="dropdown-item" href="#">Eating area</a>
-                            <a class="dropdown-item" href="#">Parking</a>
-                            <a class="dropdown-item" href="#">Pet friendly</a>
-                            <a class="dropdown-item" href="#">Toilets</a>
-                            </div>
-                        </div> 
+                        <select class="selectpicker" multiple data-live-search="true"  id="facilities" name="facilities">
+                            {% for accessibility in accessibilities %}
+                            <option value="{{accessibility.name}}">{{accessibility.display_name}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="ltitle">Title of your review:</label><br>
-                <input type="text" class="form-control" id="ltitle" name="ltitle">
+                <label for="title">Title of your review:</label><br>
+                <input type="text" class="form-control" id="title" name="title">
             </div>
             <div class="form-group">
-                <label for="ldescription">Your review:</label><br>
-                <textarea class="form-control" id="ldescription" name="ldescription"></textarea>
+                <label for="description">Your review:</label><br>
+                <textarea class="form-control" id="description" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="images">Upload image</label>
+                <input name="images" id="images" type="file" accept="image/jpg, image/png, image/jpeg" multiple class="form-control-file" >
             </div>
             <button type="subimt" class="btn btn-primary">Submit</button>
         </form>
     </div>
+
+<center>
+    <span class='error-message'>
+        {% if error_message %}
+        {{error_message}}
+        {% endif %}
+    </span>
+
+</center>
 {% endblock %}
