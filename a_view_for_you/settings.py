@@ -13,17 +13,18 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#print(os.path.join(BASE_DIR, '.env'))
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if os.getenv('ENV') == 'PRODUCTION' else True
 #Templates folder
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS =["*","arjunagarwal.pythonanywhere.com"]
 
 
 
@@ -90,7 +91,7 @@ WSGI_APPLICATION = 'a_view_for_you.wsgi.application'
 DATABASE_CONF = {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': os.getenv('DB'),
-    'USER': os.getenv('USER'),
+    'USER': os.getenv('USERNAME'),
     'PASSWORD': os.getenv('PASSWORD'),
     'HOST': os.getenv('HOST'),
     'PORT': 3306
@@ -103,7 +104,9 @@ DATABASE_CONF = {
 DATABASES = {
     'default': DATABASE_CONF
 }
+import pymysql
 
+pymysql.install_as_MySQLdb()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -146,6 +149,7 @@ USE_TZ = True
 STATICFILES_DIRS = (
     STATIC_DIR,
 )
+STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
 STATIC_URL = '/static/'
 #MEDIA
 MEDIA_URL = '/media/'
