@@ -4,3 +4,5 @@ $(function () {
         format: 'DD/MM/YYYY'
     });
 });
+
+$('select').selectpicker();
