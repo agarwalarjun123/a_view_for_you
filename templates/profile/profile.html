@@ -1,0 +1,90 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block script_block %}
+<link rel="stylesheet" href="{% static 'css/profile.css'%}">
+{% endblock %}
+
+{% block body_block %}
+
+<div class="row py-5 px-4">
+    <div class="col-md-0 mx-auto">
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+
+
+            <div class="bg-light px-4 pt-0 pb-4 cover">
+                <div class="media align-items-end profile-head">
+                    <div class="profile mr-3">
+                        <img src=/static/images/logo.png alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                        <h4 class="mt-0 mb-0">User Name</h4>
+                        <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>Brief Introduction</p>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">0</h5><small class="text-muted"> <i class="fa fa-picture-o mr-1"></i>Likes</small>
+                    </li>
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">0</h5><small class="text-muted"> <i class="fa fa-user-circle-o mr-1"></i>Reviews</small>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0"><a href="#" class="text-black">Favourites</a></h5>
+                </div>
+                <div class="row">
+                    <div class="col"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h4 class="mt-0 mb-0">landscape</h4></div>
+                    <div class="col"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h4 class="mt-0 mb-0">landscape</h4></div>
+                    <div class="col"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h4 class="mt-0 mb-0">landscape</h4></div>
+                    <div class="col"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h4 class="mt-0 mb-0">landscape</h4></div>
+                </div>
+            </div>
+
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0"><a href="#" class="text-black">Recent reviews</a></h5>
+                </div>
+                <div class="row">
+                    <ul class="p-4 bg-light rounded shadow-sm">
+                        <p class="font-italic mb-0">placeholder</p>
+                        <ul class="list-inline small text-muted mt-3 mb-0">
+                            <li class="list-inline-item"><i class="mr-2"></i>Date</li>
+                        </ul>
+                    </ul>
+                    <ul class="p-4 bg-light rounded shadow-sm">
+                        <p class="font-italic mb-0">placeholder</p>
+                        <ul class="list-inline small text-muted mt-3 mb-0">
+                            <li class="list-inline-item"><i class="mr-2"></i>Date</li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+ 
+

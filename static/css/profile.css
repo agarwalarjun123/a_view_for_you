@@ -1,0 +1,17 @@
+.profile-head {
+    transform: translateY(5rem)
+}
+
+/*
+.cover {
+    background-image: url(/static/images/homeImage.jpg);padding: 5%;
+    background-size: cover;
+    background-repeat: no-repeat
+}*/
+/*
+body {
+    background: #654ea3;
+    background: linear-gradient(to right, #e96443, #904e95);
+    min-height: 100vh;
+    overflow-x: hidden
+}*/
