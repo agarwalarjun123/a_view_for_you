@@ -17,3 +17,8 @@ h3 {
 .button {
     width: 30%;
 }
+#signup-link {
+    margin-top: 20px;
+    display:inline-block;
+
+}

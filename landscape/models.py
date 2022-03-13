@@ -1,4 +1,5 @@
 from base64 import encode
+from django.utils.timezone import now
 from django.db import models
 from django.core.validators import RegexValidator
 from slugify import slugify
@@ -12,8 +13,8 @@ class Landscape(Base):
                             RegexValidator('^[A-Za-z0-9 ]+$')])
     description = models.TextField()
     address = models.TextField(blank=True)
-    slug = models.SlugField()
-    images = models.TextField(blank=True)
+    slug = models.SlugField(unique=True)
+    image = models.ImageField(upload_to='landscapes', null=True, blank=True)
     activities = models.JSONField(default=list, blank = True)
     accessibilities = models.JSONField(default=list, blank = True)
     is_active = models.BooleanField(default=True)
@@ -29,13 +30,20 @@ class Landscape(Base):
 
 class Review(Base):
     TITLE_MAX_LENGTH = 500
+    MULTIPLECHOICE_MAX_LENGTH = 500
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     description = models.TextField(blank=True)
     rating = models.FloatField(null=False, blank=True, default=5)
-    visit_date = models.DateTimeField(auto_now_add=True)
-    images = models.TextField(blank=True)
+    visit_date = models.DateTimeField(default=now, blank=True)
+    facilities = models.CharField(max_length = MULTIPLECHOICE_MAX_LENGTH)
+    activities = models.CharField(max_length = MULTIPLECHOICE_MAX_LENGTH)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE)
     landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.title
+
+class Photo(Base):
+    review_id = models.ForeignKey(Review, on_delete = models.CASCADE, null=True)
+    landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE, null=True)
+    image = models.ImageField(upload_to='landscapes', null=True, blank=True)

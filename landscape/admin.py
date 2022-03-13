@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Landscape, Review
+from .models import Landscape, Photo, Review
 # Register your models here.
 class LandscapeAdmin(admin.ModelAdmin):
         prepopulated_fields = {"slug": ("name",)}
@@ -7,3 +7,4 @@ class LandscapeAdmin(admin.ModelAdmin):
 
 admin.site.register(Landscape,LandscapeAdmin)
 admin.site.register(Review)
+admin.site.register(Photo)
