@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block script_block %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block title_block %}
+Register
+{% endblock %}
+
+
+{% block body_block %}
+<h3>Login</h3>
+<form action="{%url 'auth:login'%}" method='POST'>
+    {% csrf_token %}
+    <fieldset class="form-group register-form">
+        <label class="control-label" for="id_email">Email Address</label>
+        <input type="email" name="email" id="email" class='form-control'>
+    </fieldset>
+    <fieldset class="form-group register-form">
+        <label class="control-label" for="id_password">Password</label>
+        <input type="password" name="password" id="password" class='form-control'>
+        <span></span>
+    </fieldset>
+    <center><input type="submit" value="Login" class='btn btn-primary'></center>
+</form>
+
+<form method='post' action="{% provider_login_url 'google' %}">
+    {% csrf_token %}
+    <center><button type="submit" class="btn btn-google btn-outline btn-uppercase"><img
+                src="https://img.icons8.com/color/16/000000/google-logo.png">Login Using Google</a></center>
+</form>
+<center><span id = 'signup-link'>New User? <a href="{% url 'auth:register' %}">Sign up</a></span></center>
+<center>
+    <span class='error-message'>
+        {% if error_message %}
+        {{error_message}}
+        {% endif %}
+    </span>
+
+</center>
+
+
+{% endblock %}

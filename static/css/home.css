@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 div.gallery {
     margin: 5px;
     border: 1px solid #ccc;
@@ -21,3 +22,13 @@ div.desc {
 
 
 
+=======
+.landscapes-section-container {
+    display: flex;
+}
+
+.landscape-image {
+    height: 40px;
+    width: 40px;
+}
+>>>>>>> 7eca932e65b047916920b8e0b44a913ae3287a13

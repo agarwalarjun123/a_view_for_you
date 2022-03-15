@@ -5,6 +5,7 @@
     padding: 20px;
     margin: 15px;
     display: inline;
+    border-width: 1.5px;
 }
 .jq-star-svg {
     height: 20px;

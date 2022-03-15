@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block script_block %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block title_block %}
+Register
+{% endblock %}
+
+
+{% block body_block %}
+<h3>Sign Up</h3>
+<form action="{%url 'auth:register'%}" method = 'POST' enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+    <fieldset class="form-group register-form">
+        <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+            <span class="error-message">{{ field.errors.0 }}</span>
+        {% endif %}
+        <span></span>
+    </fieldset>
+    {% endfor %}
+    <center><input type="submit" value="Register" class = 'btn btn-primary button'></center>
+</form>
+{% endblock %}

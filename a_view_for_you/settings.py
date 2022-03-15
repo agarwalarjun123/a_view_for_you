@@ -13,20 +13,18 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#print(os.path.join(BASE_DIR, '.env'))
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.getenv('ENV') == 'DEVELOPMENT' else True
-
+DEBUG = False if os.getenv('ENV') == 'PRODUCTION' else True
 #Templates folder
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS =["*","arjunagarwal.pythonanywhere.com"]
 
 
 
@@ -49,7 +47,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google', 
+    'allauth.socialaccount.providers.google',
 ]
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -90,13 +88,25 @@ WSGI_APPLICATION = 'a_view_for_you.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+DATABASE_CONF = {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': os.getenv('DB'),
+    'USER': os.getenv('USERNAME'),
+    'PASSWORD': os.getenv('PASSWORD'),
+    'HOST': os.getenv('HOST'),
+    'PORT': 3306
+} if os.getenv('ENV') == 'PRODUCTION' else {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }
 
+
+DATABASES = {
+    'default': DATABASE_CONF
+}
+import pymysql
+
+pymysql.install_as_MySQLdb()
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -139,10 +149,14 @@ USE_TZ = True
 STATICFILES_DIRS = (
     STATIC_DIR,
 )
+STATIC_ROOT = os.path.join(BASE_DIR,"staticfiles")
 STATIC_URL = '/static/'
 #MEDIA
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+APPEND_SLASH = True
 
 AUTH_USER_MODEL = 'authentication.User'
 
@@ -154,12 +168,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # GOOGLE OAUTH SETTINGS
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/auth/login/'
 
 # Additional configuration settings
 SOCIALACCOUNT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET= True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

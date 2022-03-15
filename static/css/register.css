@@ -1,0 +1,24 @@
+h3 {
+    padding: 20px;
+}
+.register-form {
+    padding: 20px;
+}
+.error-message {
+    color: red;
+    font-size: small;
+}
+.btn-google {
+    color: #545454;
+    margin-top: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 1px #ddd
+}
+.button {
+    width: 30%;
+}
+#signup-link {
+    margin-top: 20px;
+    display:inline-block;
+
+}
