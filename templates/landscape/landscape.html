@@ -25,27 +25,15 @@
                         </span>
                     </p>
                     <h4>{{ r.title }}</h4>
-    <a href="{% url 'landscape:add_review' landscape.slug %}" > Write a review</a>
-    {% if reviews %}
-        {% for r in reviews %}
-        <div class = 'review-result-container' style="display:block">
-            <div class = 'review-result-container-content'>
-                <p>
-                    {{ r.user_id }} authored a review
-                    <span style="float:right;">
-                        {{ r.visit_date }}
-                    </span>
-                </p>
-                <h4>{{ r.title }}</h4>
-               <div class="review_row">
-                    <div class="review_column">
-                        <div><span class="stars-container stars-{{r.rating}}">★★★★★{{r.rating}}</span></div>
+                    <div class="review_row">
+                        <div class="review_column">
+                            <div><span class="stars-container stars-{{r.rating}}">★★★★★{{r.rating}}</span></div>
+                        </div>
+                        <div class="review_column">
+                            <p>{{ r.description }}</p>
+                        </div>
                     </div>
-                    <div class="review_column">
-                        <p>{{ r.description }}</p>
-                    </div>
-              </div>
-            </div>
+                </div>
               </div>
             <br />
             {% endfor %}
