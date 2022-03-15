@@ -47,3 +47,5 @@ class Photo(Base):
     review_id = models.ForeignKey(Review, on_delete = models.CASCADE, null=True)
     landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE, null=True)
     image = models.ImageField(upload_to='landscapes', null=True, blank=True)
+
+## TODO add saved_landscapes Model user_id, landscape_id, is_active - boolean
