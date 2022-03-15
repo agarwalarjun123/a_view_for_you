@@ -8,6 +8,7 @@ from landscape.forms import ReviewForm
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
 
+
 def index(request):
 
     context_dict = {}
@@ -41,6 +42,7 @@ def show_landscape(request, landscape_name_slug):
     # Go render the response and return it to the client.
     return render(request, 'landscape/landscape.html', context=context_dict)
 
+
 @login_required()
 def add_review(request, landscape_name_slug):
     print("*ADD REVIEW")
@@ -58,7 +60,7 @@ def add_review(request, landscape_name_slug):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         images = request.FILES.getlist('images')
-        
+
         if form.is_valid():
             review = form.save(commit=False)
             review.landscape_id = landscape
@@ -69,8 +71,8 @@ def add_review(request, landscape_name_slug):
 
             for image in images:
                 print("**Image added")
-                photo = Photo.objects.create(review_id =review, image = image)
-        
+                photo = Photo.objects.create(review_id=review, image=image)
+
             return redirect('/landscape/')
         print(form.errors)
         error_message = form.errors
@@ -79,7 +81,8 @@ def add_review(request, landscape_name_slug):
     context_dict['form'] = form
     context_dict['landscape'] = landscape
     context_dict['activities'] = apps.get_app_config('landscape').activities
-    context_dict['accessibilities'] = apps.get_app_config('landscape').accessibilities
+    context_dict['accessibilities'] = apps.get_app_config(
+        'landscape').accessibilities
     context_dict['error_message'] = error_message
     return render(request, 'landscape/add_review.html', context=context_dict)
 
@@ -87,12 +90,16 @@ def add_review(request, landscape_name_slug):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q', '')
+
         location = {k: float(request.GET.get(k))
                     for k in ['lat', 'lon']} if request.GET.get('lat') else None
+        # filters
         activities = request.GET.get('activities').split(',') if request.GET.get(
             'activities') and len(request.GET.get('activities').split(',')) > 0 else []
         accessibilities = request.GET.get('accessibilities').split(',') if request.GET.get(
             'accessibilities') and len(request.GET.get('accessibilities').split(',')) > 0 else []
+
+        # query
         es_query = {
             'bool': {
                 'must': [{
@@ -107,31 +114,40 @@ def search(request):
                         }
                 }],
             }
-
         }
+        # location
         if location:
             es_query['bool']['must'].append({
                 'geo_distance': {
                     "distance": django_apps.get_app_config('landscape').GEO_DISTANCE,
-                         "location": location,
-                }   
+                    "location": location,
+                }
             })
+
         additional_filters = len(activities) > 0 or len(accessibilities) > 0
         es_query['bool']['should'] = [] if additional_filters else None
         es_query['bool']['minimum_should_match'] = 1 if additional_filters else None
+
         # add the filter to the query if exists
         if len(activities) > 0:
             es_query['bool']['should'].append({
                 'terms': {
                     'activities': activities,
                 }})
+
         if len(accessibilities) > 0:
             es_query['bool']['should'].append({
                 'terms': {
                     'accessibilities': accessibilities,
                 }})
         es = django_apps.get_app_config('landscape').es
-        result = es.search(index=settings.ES_INDEX, query=es_query)
+
+        SORTING = [
+            {'review.average_rating': {'order': 'desc'}},
+            {'review.count': {'order': 'desc'}}
+        ]
+        result = es.search(index=settings.ES_INDEX,
+                           query=es_query, sort=SORTING)
         result = [data['_source'] for data in result.body['hits']['hits']]
         response = JsonResponse({"data": result, 'is_success': True})
         return response

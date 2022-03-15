@@ -1,11 +1,8 @@
-
 $(() => {
-  let filters = _.omitBy({
-    ...JSON.parse(localStorage.getItem('location'))
-  },_.isNil);
+  $("#query").val(q);
 
   const getFilters = () => {
-    filters = _.omit(filters,['activities','accessibilities'])
+    filters = {};
     const activities = [];
     const accessibilities = [];
     $(".activities:checked").each(function () {
@@ -28,44 +25,58 @@ $(() => {
             activities: activities.join(","),
           }
         : filters;
+    getLocation(
+      (location) => {
+        localStorage.setItem("location", JSON.stringify(location));
+        filters = {
+          ... filters,
+          ...location,
+        };
+        search($("#query").val(), filters);
+      },
+      () => {
+        localStorage.removeItem("location");
+        filters = _.omit(filters, ["lat", "lon"]);
+        search($("#query").val(), filters);
+      }
+    );
+    filters = localStorage.getItem("location")
+      ? { ...JSON.parse(localStorage.getItem("location")), ...filters }
+      : filters;
     return filters;
   };
-  
-  const getLocation = () => {
+
+  const getLocation = (success, error) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const location = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,  
-        }
-        localStorage.setItem('location', JSON.stringify(location))
-
-        filters = {
-            ...filters,
-            ...location
-        }
-        search($("#query").val(), filters);
-      }, (error) => {
-        search(q, filters);
-      });
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        };
+        success(location);
+      }, error);
+    }
+    else {
+      error()
     }
   };
-  $("#query").val(q);
-  getLocation();
-  search(q, filters)
+
+  filters = getFilters();
+
+  search(q, filters);
   $("#search-button-search").on("click", (e) => {
-    filters = getFilters();
     e.preventDefault();
+    filters = getFilters();
     search($("#query").val(), filters);
   });
 });
 
-const search = (q = "", filters = {}) => {
+const search = (query = "", filters = {}) => {
   $.ajax({
     url: "/landscape/search/",
     method: "GET",
     data: {
-      q,
+      q: query,
       ...filters,
     },
     dataType: "json",
@@ -83,11 +94,14 @@ const search = (q = "", filters = {}) => {
     },
   });
 };
+
 const appendResult = (result) => {
   $(".search-results").append(`
-    <div class = 'search-result-container'>
+    <div class = 'search-result-container' id = '${result.slug}'>
         <div class = 'search-result-container-image-container'>
-            <img class = 'search-result-container-image' src = '${result.image}'/>
+            <img class = 'search-result-container-image' src = '${
+              result.image
+            }'/>
         </div>
         <div class = 'search-result-container-content'>
             <h4>${result.name}</h4>
@@ -107,5 +121,8 @@ const appendResult = (result) => {
     initialRating: result?.review?.average_rating,
     readOnly: true,
   });
+  $(`#${result.slug}`).on('click',(e) => {
+    window.location.href = `/landscape/${result.slug}`
+  })
+  
 };
-

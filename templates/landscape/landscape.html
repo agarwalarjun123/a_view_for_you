@@ -25,6 +25,8 @@
                         </span>
                     </p>
                     <h4>{{ r.title }}</h4>
+            {% endfor %}
+        {% endif %}
     <a href="{% url 'landscape:add_review' landscape.slug %}" > Write a review</a>
     {% if reviews %}
         {% for r in reviews %}
@@ -48,7 +50,7 @@
             </div>
               </div>
             <br />
-            {% endfor %}
+        {% endfor %}
             {%else%}
             <li><strong>There are no reviews.</strong></li>
         {%endif%}
