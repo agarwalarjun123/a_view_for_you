@@ -2,13 +2,19 @@
 {% load static %}
 
 {% block script_block %}
-<link rel="stylesheet" href="{% static 'css/search.css'%}">
-<script src="{% static 'js/search.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/home.css'%}">
+{% endblock %}
+
+
+
+{% block title_block %} <!-- Don't think I need this title_block in?-->
+    {{ landscape.name }}
 {% endblock %}
 
 {% block body_block %}
 <div 
-style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
+
+style="background-image: url(/static/images/homeImage.jpg);padding: 5%;"> 
     <div class="search-box">
         <div id='search-box-container'>
             <input type="text" class="form-control" id="query">
@@ -19,12 +25,37 @@ style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
     </div>
 </div>
 <br>
-    <h4>Most Visited Landscapes</h4>
-</br>
-<br>
-    <h4>Located near you...</h4>
-<br/>
+
+<!-- the gallery images appearing underneath each other, cannot work out how to get side to side with the loop-->
+<h4>Most Visited Landscapes </h4>
+<div class = "gallery">
+    {% for landscape in landscapes %}
+        <a target="_blank" href="{{ landscape.images }}">
+            <img src="{{ landscape.images }}" width ="200" height = "100">
+        </a>
+        <div class="desc">{{ landscape.name }}</div>
+    {% endfor %}
+  </div>
+<hr>
+<h4>A View Near You</h4>
+
+<div class = "gallery">
+    {% for landscape in landscapes %}
+        <a target="_blank" href="{{ landscape.images }}">
+            <img src="{{ landscape.images }}" width ="200" height = "100">
+        </a>
+        <div class="desc">{{ landscape.name }}</div>
+    {% endfor %}
+</div>
+
 {% endblock %}
+
+
+
+   
+        
+        
+
 
 
 
