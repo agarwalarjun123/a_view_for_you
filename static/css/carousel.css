@@ -1,0 +1,15 @@
+.slider{
+    padding-right: 2rem;
+}
+.slick-slide{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+#prev{
+    width:40px;
+    background-color: lightgrey;
+}
+#next{
+    width:40px;
+    background-color: lightgrey;
+}
