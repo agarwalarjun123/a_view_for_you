@@ -54,3 +54,9 @@
 #search-form {
     width: 100%;
 }
+
+.search-result-container {
+    cursor: pointer;
+}
+
+
