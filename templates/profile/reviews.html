@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block script_block %}
+<link rel="stylesheet" href="{% static 'css/profile.css'%}">
+<link rel="stylesheet" href="{% static 'css/review.css' %}">
+{% endblock %}
+
+{% block body_block %}
+
+<div class="row py-5 px-4">
+    <div class="col-md-0 mx-auto">
+        <!-- Profile widget -->
+        <!--div class="bg-white shadow rounded overflow-hidden"-->
+           
+            <!-- username and image-->
+            <div class="bg-light px-4 pt-0 pb-4 cover">
+                <div class="media align-items-end profile-head">
+                    <div class="profile mr-3">
+                        <img = src = "{{ User.profile_image }}" alt="{{ User.username }}'s profile image" width="130" class="rounded mb-2 img-thumbnail">
+                        <h4 class="mt-0 mb-0">{{ User.username|default:"Username" }}</h4>
+                        <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>Brief Introduction</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- number of likes and reviews -->
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">{{profile_likes|length}}</h5><small class="text-muted"> <a href="{% url 'profile:profile_likes' %}" class="fa fa-picture-o mr-1">Likes</a></small>
+                    </li>
+                    <li class="list-inline-item">
+                        <h5 class="font-weight-bold mb-0 d-block">{{profile_reviews|length}}</h5><small class="text-muted"> <a href="{% url 'profile:profile_reviews' %}" class="fa fa-user-circle-o mr-1">Reviews</a></small>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- reviews -->
+            <div class="py-4 px-4">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="mb-0">Recent reviews</h5>
+                </div>
+                <div class="row">
+                    <!-- list reviews -->
+                    {% if profile_reviews %}
+                        {% for r in profile_reviews %}
+                        <div class = 'review-result-container' style="display:block">
+                            <div class = 'review-result-container-content'>
+                                <p>
+                                    <span style="float:right;">
+                                        {{ r.visit_date|default:"Date" }}
+                                    </span>
+                                </p>
+                                <h4>{{ r.title|default:"Tile" }}</h4>
+                           <div class="review_row">
+                                <div class="review_column">
+                                    <div><span class="stars-container stars-{{r.rating}}">★★★★★{{r.rating}}</span></div>
+                                </div>
+                                <div class="review_column">
+                                    <p>{{ r.description|default:"description" }}</p>
+                                </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                        {%else%}
+                        <!-- if no reviews, show a template for testing -->
+                        <li><strong>You have no reviews.</strong></li>
+                            <div class = 'review-result-container' style="display:block">
+                                <div class = 'review-result-container-content'>
+                                    <p>
+                                        <span style="float:right;">
+                                            {{ r.visit_date|default:"Date" }}
+                                        </span>
+                                    </p>
+                                    <h4>{{ r.title|default:"Tile" }}</h4>
+                               <div class="review_row">
+                                    <div class="review_column">
+                                        <div><span class="stars-container stars-{{r.rating}}">★★★★★{{r.rating}}</span></div>
+                                    </div>
+                                    <div class="review_column">
+                                        <p>{{ r.description|default:"description" }}</p>
+                                    </div>
+                              </div>
+                            </div>
+                    {%endif%}
+                </div>
+            </div>
+        <!--/div-->
+    </div>
+</div>
+{% endblock %}
