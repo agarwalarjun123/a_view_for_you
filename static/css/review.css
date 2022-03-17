@@ -57,3 +57,8 @@
 .stars-80:after { width: 80%; }
 .stars-90:after { width: 90%; }
 .stars-100:after { width: 100; }
+
+.error-message {
+    color: red;
+    font-size: small;
+}

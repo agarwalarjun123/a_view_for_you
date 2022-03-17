@@ -29,10 +29,14 @@ def show_landscape(request, landscape_name_slug):
         landscape = Landscape.objects.get(slug=landscape_name_slug)
         reviews = Review.objects.filter(
             landscape_id=landscape.id).order_by('-visit_date')[:5]
+        photos = Photo.objects.filter(landscape_id = landscape.id)
+        
         for r in reviews:
             r.rating = roundRating(r.rating)
         context_dict['reviews'] = reviews
         context_dict['landscape'] = landscape
+        context_dict['photos'] = photos
+        context_dict['url'] = Photo.objects.first().image.url
     except Landscape.DoesNotExist:
         # We get here if we didn't find the specified reviews.
         # Don't do anything -
@@ -45,7 +49,6 @@ def show_landscape(request, landscape_name_slug):
 
 @login_required()
 def add_review(request, landscape_name_slug):
-    print("*ADD REVIEW")
     try:
         landscape = Landscape.objects.get(slug=landscape_name_slug)
     except Landscape.DoesNotExist:
@@ -70,8 +73,7 @@ def add_review(request, landscape_name_slug):
             review.save()
 
             for image in images:
-                print("**Image added")
-                photo = Photo.objects.create(review_id=review, image=image)
+                photo = Photo.objects.create(review_id =review, image = image, landscape_id = landscape)
 
             return redirect('/landscape/')
         print(form.errors)
