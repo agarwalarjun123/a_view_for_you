@@ -8,16 +8,49 @@ $(()=> {
     $("#search-button-search").on('click', () => {
         window.location.href = `/landscape?q=${$("#query").val()}`
     })
+    $(".landscape").on('click', function(){
+        window.location.href = '/landscape/' + $(this).attr('value')
+    })
 
     $(window).on('resize', () => {
-        carouselView()
         if ($(window).width() > 500) {
             carouselView()
+            locationCarouselView()
         }
         else {
             location.reload()
         }
     })
+    const locationCarouselView = () => {
+        if ($(window).width() > 500) {
+            let count = 0;
+            let slider_count = 0;
+            let max_slider_count = 3;
+            $(".location .card").each((i,element) => {
+                if(count % max_slider_count === 0) {
+                    slider_count ++
+                    if ($('.location .carousel-item').length < slider_count) {
+                        let carouselItem = $(
+                            "<div class = 'carousel-item'></div>"
+                        )
+                        let cardWrapper = $(
+                            "<div class = 'cards-wrapper'></div>"
+                        )
+                        carouselItem.append(cardWrapper)
+                        $('.location').append(carouselItem)
+                    }
+                }  
+                $(".location .carousel-item .cards-wrapper").eq(slider_count - 1).append(element);
+                count ++
+            });    
+            console.log(slider_count)
+            const length = $(".location .carousel-item").length
+            console.log(length)
+            for (let i =  slider_count ;i <= length - 1 ;i++ ){
+                $('.location .carousel-item').eq(slider_count).remove();
+            }
+        }
+    }
     const carouselView = () => {
         if ($(window).width() > 500) {
             let count = 0;
@@ -49,6 +82,7 @@ $(()=> {
         }
     }
     carouselView()
+    locationCarouselView()
 
 
     $(".rating").each((i,element) => {

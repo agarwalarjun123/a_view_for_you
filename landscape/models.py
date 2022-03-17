@@ -12,9 +12,9 @@ class Landscape(Base):
     name = models.CharField(max_length=apps.get_app_config('landscape').landscape_max_length, validators=[
                             RegexValidator('^[A-Za-z0-9 ]+$')])
     description = models.TextField()
-    address = models.TextField(blank=True)
+    address = models.TextField()
     slug = models.SlugField(unique=True)
-    image = models.ImageField(upload_to='landscapes', null=True, blank=True)
+    image = models.ImageField(upload_to='landscapes')
     activities = models.JSONField(default=list, blank = True)
     accessibilities = models.JSONField(default=list, blank = True)
     is_active = models.BooleanField(default=True)

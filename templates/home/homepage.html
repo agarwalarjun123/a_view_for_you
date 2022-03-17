@@ -29,11 +29,13 @@ style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
   <h4 class = 'gallery-heading'>Most Visited Landscapes</h4>
   <div id="visited-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner visited">
-      {% for landscape in landscapes %}
+      {% for landscape in visited_results %}
       <div class="carousel-item">
         <div class="cards-wrapper">
-        <div class="card">
-          <img src="{{landscape.images}}" class="card-img-top" alt="landscape-image">    
+        <div class="card landscape" value="{{landscape.slug}}">
+          <div class = 'card-image-container'>
+            <img src="{{landscape.image}}" class="card-img-top" alt="landscape-image">      
+          </div>
           <div class="card-body">
             <h5 class="card-title">{{landscape.name}}</h5>
             <div class="rating" id = 'visited-{{landscape.id}}' value = '{{landscape.review.average_rating}}' style = 'display:inline; padding: 2px;'></div>
@@ -53,6 +55,35 @@ style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
           <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+
+    <h4 class = 'gallery-heading'>Landscapes near you</h4>
+    <div id="location-carousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner location">
+        {% for landscape in location_results %}
+        <div class="carousel-item">
+          <div class="cards-wrapper">
+          <div class="card landscape" value = "{{landscape.slug}}">
+            <img src="{{landscape.image}}" class="card-img-top" alt="landscape-image">    
+            <div class="card-body">
+              <h5 class="card-title">{{landscape.name}}</h5>
+              <div class="rating" id = 'location-{{landscape.id}}' value = '{{landscape.review.average_rating}}' style = 'display:inline; padding: 2px;'></div>
+              <p class="card-text">{{landscape.review.count}} reviews<br> {{landscape.address}}</p>
+            </div>
+          </div>
+        </div>
+        </div>
+        {% endfor %}
+      </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#location-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#location-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+      </div>
 {% endblock %}
 
 

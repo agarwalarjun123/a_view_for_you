@@ -20,7 +20,7 @@ def populate_landscapes():
          {
       "name": "Ben Nevis",
       "description": "Ben Nevis couldn't be any more dramatic, with a summit often veiled by clouds, and dustings of pure white snow. Once an enormous active volcano, it's now a silent giant watching over the glacial valleys and lochs of the land.",
-      "address": "scotland",
+      "address": "Loch Lomond, Loch Lomond and The Trossachs National Park, Alexandria G83 8QZ Scotland",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/BenNevis2005.jpg/1920px-BenNevis2005.jpg",
       "activities": [
         "fishing","hiking"
@@ -35,7 +35,7 @@ def populate_landscapes():
     {
       "name": "Glen Coe",
       "description": "Glen Coe is Scotland's most famous, and most romantic glen.Some landscapes are worthy of a postcard, but not a blockbuster film. Glen Coe on the other hand is truly filmic and featured in one of the Harry Potter films. Its awe-inspiring scenery and Machiavellian history has long been an inspiration for creatives, and to visit is life enriching.",
-      "address": "glencoe address",
+      "address": "Loch Lomond, Loch Lomond and The Trossachs National Park, Alexandria G83 8QZ Scotland",
       "images": ["https://thumbs.dreamstime.com/b/remote-mountain-cottage-glencoe-picture-postcard-scottish-highlands-79753771.jpg"],
       "activities": ["boating"],
       "accessibilities": [
@@ -61,13 +61,32 @@ def populate_landscapes():
       "accessibilities": [
         "wheelchair"
       ],
-      "latitude": 90,
-      "longitude": 80,
+      "latitude": 28.4809,
+      "longitude": 77.0803,
+      "reviews": []
+    },
+    {
+      "name": "Cairngorms",
+      "description": "The Cairngorms (Scottish Gaelic: Am Monadh Ruadh) are a mountain range in the eastern Highlands of Scotland closely associated with the mountain Cairn Gorm. The Cairngorms became part of Scotland's second national park (the Cairngorms National Park) on 1 September 2003.[2] Although the Cairngorms give their name to, and are at the heart of, the Cairngorms National Park, they only form one part of the national park, alongside other hill ranges such as the Angus Glens and the Monadhliath, and lower areas like Strathspey.",
+      "address": "Highland, Aberdeenshire and Moray, Scotland",
+      "images": ["https://upload.wikimedia.org/wikipedia/commons/7/7e/The-cairngorms-from-geal-charn.jpg"],
+      "activities": [
+        "boating",
+        "hiking",
+        "fishing"
+      ],
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/7e/The-cairngorms-from-geal-charn.jpg",
+      "accessibilities": [
+        "wheelchair"
+      ],
+      "latitude": 28.4107,
+      "longitude": 77.0424,
       "reviews": []
     }
     ]
     for landscape in landscapes:
-        landscape_doc = {key: landscape[key] for key in list(set(landscape.keys()) & set(['name','description','activities','accessibilities','latitude','longitude']))}
+        landscape_doc = {key: landscape[key] for key in list(set(landscape.keys()) & set(['name','address','description','activities','accessibilities','latitude','longitude']))}
+        print(landscape_doc)
         landscape_doc = Landscape(**landscape_doc)
         if landscape['image']:
             file,name = read_image_from_url(landscape['image'])
