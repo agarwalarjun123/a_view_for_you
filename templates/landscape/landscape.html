@@ -3,6 +3,8 @@
 
 {% block script_block %}
 <link rel="stylesheet" href="{% static 'css/review.css' %}">
+<link rel="stylesheet" href="{% static 'css/landscape_detail_img.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/like.css' %}" type="text/css">
 {% endblock %}
 
 {% block title_block %}
@@ -10,7 +12,54 @@
 {% endblock %}
 
 {% block body_block %}
-    <div style="margin: 3%">
+
+<div style="margin: 3%">
+<div class="heart-btn">
+      <div class="content">
+        <span class="heart"></span>
+        <span class="text">Like</span>
+        <span class="numb"></span>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function(){
+        $('.content').click(function(){
+          $('.content').toggleClass("heart-active")
+          $('.text').toggleClass("heart-active")
+          $('.numb').toggleClass("heart-active")
+          $('.heart').toggleClass("heart-active")
+        });
+      });
+    </script>
+    {% if landscape %}
+        <div class="landscape_banner_container">
+             <div class="landscape_box">
+                 <div class="landscape_img-box">
+                     <img src="{{ landscape.image }}" alt="">
+                 </div>
+                 <div class="landscape_img-box">
+                    <img src="{{ landscape.image }}" alt="">
+                 </div>
+                 <div class="landscape_img-box">
+                    <img src="{{ landscape.image }}" alt="">
+                 </div>
+            </div>
+        </div>
+
+
+    <strong>
+        {{ landscape.name  }}
+    </strong>
+    <p><i>{{ landscape.description }}</i></p>
+
+    {%else%}
+    <li><strong>There are no landscapes.</strong></li>
+    {% endif %}
+
+
+<h3>Photo Gallery</h3>
+
+
         <h3>Recent reviews</h3>
 
         <a href="{% url 'landscape:add_review' landscape.slug %}" > Write a review</a>
@@ -41,5 +90,6 @@
             <li><strong>There are no reviews.</strong></li>
         {%endif%}
     </div>
+</div>
 
 {% endblock %}
