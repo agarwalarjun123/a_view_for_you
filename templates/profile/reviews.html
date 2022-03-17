@@ -38,30 +38,6 @@
                 </ul>
             </div>
 
-            <!-- likes -->
-            <div class="py-4 px-4">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h5 class="mb-0">Favourites</h5>
-                </div>
-                <div class="row">
-                    <!-- list likes -->
-                    {% if profile_likes %}
-                        {% for l in profile_likes %}
-                        <div class="col">
-                            <img src="{{ l.image }}" alt="" class="img-fluid rounded shadow-sm"><h6 class="mt-0 mb-0">{{ l.name|default:"landscape" }}</h4>
-                        </div>
-                        {% endfor %}
-                        {%else%}
-                        <!-- if no likes, show a template for testing -->
-                        <li><strong>You have no likes.</strong></li>
-                        <div class="col-sm"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h6 class="mt-0 mb-0">landscape</h4></div>
-                        <div class="col-sm"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h6 class="mt-0 mb-0">landscape</h4></div>
-                        <div class="col-sm"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h6 class="mt-0 mb-0">landscape</h4></div>
-                        <div class="col-sm"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h6 class="mt-0 mb-0">landscape</h4></div>
-                    {%endif%}
-                </div>
-            </div>
-
             <!-- reviews -->
             <div class="py-4 px-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
@@ -116,20 +92,3 @@
     </div>
 </div>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
- 
-
