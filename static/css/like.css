@@ -2,11 +2,11 @@
 .heart-btn{
   position: absolute;
   top: 95px;
-  right: 120px;
+  right: 165px;
   transform: translate(-50%,-50%);
 }
 .content{
-  padding: 3px 3px;
+  padding: 2px 2px;
   display: flex;
   border: 2px solid #eae2e1;
   border-radius: 5px;
@@ -28,14 +28,14 @@
   transform: translate(-50%,-50%);
 }
 .text{
-  font-size: 20px;
+  font-size: 19px;
   margin-left: 29px;
   color: grey;
   font-family: 'Montserrat',sans-serif;
 }
 .numb:before{
   content: '12';
-  font-size: 20px;
+  font-size: 19px;
   margin-left: 6px;
   font-weight: 600;
   color: #9C9496;
