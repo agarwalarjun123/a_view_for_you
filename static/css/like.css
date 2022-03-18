@@ -1,6 +1,6 @@
 .heart-btn{
   position: absolute;
-  top: 135px; right: 165px;
+  top: 20%; right: 6%;
   transform: translate(-50%,-50%);
 }
 .content{
