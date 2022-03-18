@@ -6,12 +6,22 @@
 
 .landscape_banner_container {
     position: relative;
-    top:20px;
+    top:10%;
 }
 
 .landscape_box{
     text-align: center;
-    height: 550px;
+    height: 70%;
     margin: 0 auto;
     -webkit-box-reflect: below -10px -webkit-linear-gradient(transparent, transparent 80%, rgba(255, 255, 255, .3));
+}
+
+.text_border {
+    border-radius: 25px;
+    border: 2px solid #adb5bd;
+    box-shadow: 10px 10px 5px #888888;
+    padding: 30px;
+    width: 100%;
+    height: 650px;
+    background-color: whitesmoke;
 }

@@ -26,22 +26,10 @@
   transform: translate(-50%,-50%);
 }
 .text{
-  font-size: 19px;
+  font-size: 18px;
   margin-left: 29px;
   color: grey;
   font-family: 'Montserrat',sans-serif;
-}
-.numb:before{
-  content: '12';
-  font-size: 19px;
-  margin-left: 6px;
-  font-weight: 600;
-  color: #9C9496;
-  font-family: sans-serif;
-}
-.numb.heart-active:before{
-  content: '13';
-  color: red;
 }
 .text.heart-active{
   color: red;
