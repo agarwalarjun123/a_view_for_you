@@ -6,6 +6,7 @@
 
 .landscape_banner_container {
     position: relative;
+<<<<<<< Updated upstream
     left: 180px;
     bottom: 25px;
     width: 80%;
@@ -39,3 +40,17 @@
 .landscape_img-box:hover ~ .landscape_img-box:nth-child(3){
     width: 100px;
 }
+=======
+    top:20px;
+}
+
+.landscape_box{
+    text-align: center;
+    height: 550px;
+    margin: 0 auto;
+    -webkit-box-reflect: below -10px -webkit-linear-gradient(transparent, transparent 80%, rgba(255, 255, 255, .3));
+}
+
+
+
+>>>>>>> Stashed changes

@@ -3,8 +3,16 @@
 
 {% block script_block %}
 <link rel="stylesheet" href="{% static 'css/review.css' %}">
+<<<<<<< Updated upstream
 <link rel="stylesheet" href="{% static 'css/landscape_detail_img.css' %}" type="text/css">
 <link rel="stylesheet" href="{% static 'css/like.css' %}" type="text/css">
+=======
+<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/landscape_detail_img.css' %}" type="text/css">
+<link rel="stylesheet" href="{% static 'css/like.css' %}" type="text/css">
+<script src="{% static 'js/carousel.js' %}"></script>
+
+>>>>>>> Stashed changes
 {% endblock %}
 
 {% block title_block %}
@@ -12,8 +20,17 @@
 {% endblock %}
 
 {% block body_block %}
+<<<<<<< Updated upstream
 
 <div style="margin: 3%">
+=======
+    <div style="width:1440px;border: 1px solid #d0d0d0;"></div>
+    <div style="margin: 3%">
+<div class="social-share" data-mode="prepend">
+    <a href="javascript:;" class="social-share-icon icon-heart"></a>
+</div>
+
+>>>>>>> Stashed changes
 <div class="heart-btn">
       <div class="content">
         <span class="heart"></span>
@@ -37,6 +54,7 @@
                  <div class="landscape_img-box">
                      <img src="{{ landscape.image }}" alt="">
                  </div>
+<<<<<<< Updated upstream
                  <div class="landscape_img-box">
                     <img src="{{ landscape.image }}" alt="">
                  </div>
@@ -59,6 +77,47 @@
 
 <h3>Photo Gallery</h3>
 
+=======
+            </div>
+        </div>
+        <div style="margin: 5%">
+           <h2> <strong>
+                {{ landscape.name }}
+            </strong>
+            </h2>
+            <p><i>{{ landscape.description }}</i></p>
+            <p><i><strong>Address: {{ landscape.address }}</strong></i></p>
+
+            {%else%}
+            <li><strong>There are no landscapes.</strong></li>
+            {% endif %}
+
+
+        <div id="googleMap" style="width:70%;height:400px;margin: 0 auto;"></div>
+        <script>
+        function myMap() {
+        let mapProp= {
+          center:new google.maps.LatLng(51.508742,-5.3445433),
+          zoom:5,
+        };
+        let map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        }
+
+        </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlVuiiEQ8z9SYTVhndKhwSI3HLGtuHp8&callback=myMap"></script>
+        </div>
+        <h3>Photo Gallery</h3>
+        <!---CAROUSEL-->
+        <ul class="slider">
+            {% for p in photos %}
+            <li>
+                <img class="img-fluid" src="{{p.image.url}}" alt="{{p.review_id}}"/>
+            </li>
+            {% endfor %}
+        </ul>
+        <!--END CAROUSEL-->
+>>>>>>> Stashed changes
 
         <h3>Recent reviews</h3>
 
@@ -90,6 +149,10 @@
             <li><strong>There are no reviews.</strong></li>
         {%endif%}
     </div>
+<<<<<<< Updated upstream
 </div>
 
+=======
+  </div>
+>>>>>>> Stashed changes
 {% endblock %}

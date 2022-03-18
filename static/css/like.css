@@ -1,7 +1,13 @@
+<<<<<<< Updated upstream
 
 .heart-btn{
   position: absolute;
   top: 95px;
+=======
+.heart-btn{
+  position: absolute;
+  top: 135px;
+>>>>>>> Stashed changes
   right: 165px;
   transform: translate(-50%,-50%);
 }
