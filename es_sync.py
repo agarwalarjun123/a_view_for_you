@@ -38,6 +38,7 @@ def read_from_db():
         landscape_doc['image'] = settings.MEDIA_URL + landscape.image.name
         review = read_review(landscape_doc['id'])
         landscape_doc['review'] = review
+        print('landscape {} inserted'.format(landscape_doc['id']))
         es.index(index=settings.ES_INDEX, document=landscape_doc)
 
 def read_review(landscape_id):

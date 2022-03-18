@@ -37,15 +37,9 @@ def show_landscape(request, landscape_name_slug):
         context_dict['landscape'] = landscape
         context_dict['photos'] = photos
         context_dict['url'] = Photo.objects.first().image.url
+        return render(request, 'landscape/landscape.html', context=context_dict)
     except Landscape.DoesNotExist:
-        # We get here if we didn't find the specified reviews.
-        # Don't do anything -
-        # the template will display the "no reviews" message for us.
-        context_dict['landscape'] = None
-        context_dict['reviews'] = None
-    # Go render the response and return it to the client.
-    return render(request, 'landscape/landscape.html', context=context_dict)
-
+        return redirect('landscape:index')
 
 @login_required()
 def add_review(request, landscape_name_slug):
@@ -107,7 +101,6 @@ def search(request):
 
 
 def es_search(query = '', **filters):
-
         # query
         es_query = {
             'bool': {
@@ -155,7 +148,7 @@ def es_search(query = '', **filters):
                     'accessibilities': filters['accessibilities'],
                 }})
         es = django_apps.get_app_config('landscape').es
-
+        ## sorting
         SORTING = [
             {'review.average_rating': {'order': 'desc'}},
             {'review.count': {'order': 'desc'}}

@@ -12,7 +12,6 @@ def populate():
 def read_image_from_url(url):
     result = request.urlretrieve(url)    
     file_name = parse.urlparse(url).path.split('/')[-1]
-    print(file_name)
     return File(open(result[0], 'rb')), file_name
 
 def populate_landscapes():
@@ -125,7 +124,6 @@ def populate_landscapes():
     ]
     for landscape in landscapes:
         landscape_doc = {key: landscape[key] for key in list(set(landscape.keys()) & set(['name','address','description','activities','accessibilities','latitude','longitude']))}
-        print(landscape_doc)
         landscape_doc = Landscape(**landscape_doc)
         if landscape['image']:
             file,name = read_image_from_url(landscape['image'])
