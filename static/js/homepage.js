@@ -43,12 +43,21 @@ $(()=> {
                 $(".location .carousel-item .cards-wrapper").eq(slider_count - 1).append(element);
                 count ++
             });    
-            console.log(slider_count)
-            const length = $(".location .carousel-item").length
-            console.log(length)
+            let length = $(".location .carousel-item").length
             for (let i =  slider_count ;i <= length - 1 ;i++ ){
                 $('.location .carousel-item').eq(slider_count).remove();
             }
+            length = $('.location .card').length
+            let incomplete_slide = Math.floor(length / max_slider_count);
+            let counter = 0;
+            for(let i = length % max_slider_count; i < 3; i++) {
+                let card = $('.location .card').eq(counter).clone()
+                $(".location .carousel-item .cards-wrapper").eq(incomplete_slide).append(card);
+                counter ++;
+            }
+            $(".landscape").on('click', function(){
+                window.location.href = '/landscape/' + $(this).attr('value')
+            })
         }
     }
     const carouselView = () => {
@@ -73,12 +82,21 @@ $(()=> {
                 $(".visited .carousel-item .cards-wrapper").eq(slider_count - 1).append(element);
                 count ++
             });    
-            console.log(slider_count)
-            const length = $(".visited .carousel-item").length
-            console.log(length)
+            let length = $(".visited .carousel-item").length
             for (let i =  slider_count ;i <= length - 1 ;i++ ){
                 $('.visited .carousel-item').eq(slider_count).remove();
             }
+            length = $('.visited .card').length
+            let incomplete_slide = Math.floor(length / max_slider_count);
+            let counter = 0;
+            for(let i = length % max_slider_count; i < 3; i++) {
+                let card = $('.visited .card').eq(counter).clone()
+                $(".visited .carousel-item .cards-wrapper").eq(incomplete_slide).append(card);
+                counter ++;
+            }
+            $(".landscape").on('click', function(){
+                window.location.href = '/landscape/' + $(this).attr('value')
+            })
         }
     }
     carouselView()
@@ -86,7 +104,7 @@ $(()=> {
 
 
     $(".rating").each((i,element) => {
-        $(`#${element.id}`).starRating({
+        $(element).starRating({
             initialRating: $(element).attr('value'),
             readOnly: true,
         })

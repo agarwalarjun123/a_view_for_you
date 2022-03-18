@@ -13,8 +13,8 @@
 {% endblock %}
 
 {% block body_block %}
-<div 
-style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
+<div style="border:2px solid grey;">
+    <div style="background-image: url(/static/images/skyehome.png);padding: 7%; ">
     <div class="search-box">
         <div id='search-box-container'>
             <input type="text" class="form-control" id="query">
@@ -24,7 +24,7 @@ style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
         </div>
     </div>
 </div>
-
+</div>
 
   <h4 class = 'gallery-heading'>Most Visited Landscapes</h4>
   <div id="visited-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -38,7 +38,7 @@ style="background-image: url(/static/images/homeImage.jpg);padding: 5%;">
           </div>
           <div class="card-body">
             <h5 class="card-title">{{landscape.name}}</h5>
-            <div class="rating" id = 'visited-{{landscape.id}}' value = '{{landscape.review.average_rating}}' style = 'display:inline; padding: 2px;'></div>
+            <div class="rating"  value = '{{landscape.review.average_rating}}' style = 'display:inline; padding: 2px;'></div>
             <p class="card-text">{{landscape.review.count}} reviews<br> {{landscape.address}}</p>
           </div>
         </div>

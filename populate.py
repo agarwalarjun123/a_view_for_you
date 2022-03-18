@@ -55,7 +55,7 @@ def populate_landscapes():
       "activities": [
         "boating",
         "hiking",
-        "fishing"
+        "fishing", "swimming"
       ],
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/80/1e/29/loch-katrine.jpg?w=2000&h=-1&s=1",
       "accessibilities": [
@@ -82,6 +82,45 @@ def populate_landscapes():
       "latitude": 28.4107,
       "longitude": 77.0424,
       "reviews": []
+    },
+        {
+      "name": "The Quiraing",
+      "description": "This is an essential walk for any photographer as it passes though some of the most spectacular landscapes in Scotland. As part of the Trotternish ridge it has been formed by a massive landslip which has created high cliffs, hidden plateaus and pinnacles of rock.",
+      "address": "North of Skye - Trotternish",
+      "images": ["https://upload.wikimedia.org/wikipedia/commons/a/a7/South_over_the_Quiraing%2C_Isle_of_Skye.jpg"],
+      "activities": ["hiking"],
+      "accessibilities": ["parking"],
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/a7/South_over_the_Quiraing%2C_Isle_of_Skye.jpg",
+
+      "latitude": 57,
+      "longitude": -6,
+      "reviews":[]
+    }, 
+    {
+    "name": "Newburgh Beach",
+      "description": "Just 20 minutes north of Aberdeen, you find yourself at a wonderful sandy beach and home of an extensive sand dune system at the mouth of the Ythan River. A must see is the 400 strong colony of seals at the mouth of Ythan River.",
+      "address": "20 Minutes north of Aberdeen, Newburgh",
+      "images": ["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/2b/f3/60/img-20180816-131447-largejpg.jpg?w=1000&h=-1&s=1"],
+      "activities": [""],
+      "accessibilities": ["parking"],
+        "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/2b/f3/60/img-20180816-131447-largejpg.jpg?w=1000&h=-1&s=1",
+
+      "latitude": 57,
+      "longitude": -2,
+      "reviews":[]
+    },
+    {
+    "name": "Loch Ness",
+      "description": "Loch Ness is a large freshwater loch in the Scottish Highlands extending for approximately 37 kilometres southwest of Inverness. It takes its name from the River Ness, which flows from the northern end.",
+      "address": "Inverness",
+      "images": ["https://www.visitinvernesslochness.com/sites/default/files/2021-09/DJI_0271__1920.jpg"],
+      "activities": ["swimming"],
+      "accessibilities": ["kid's area, parking, toilets"],
+        "image": "https://www.visitinvernesslochness.com/sites/default/files/2021-09/DJI_0271__1920.jpg",
+
+      "latitude": 57,
+      "longitude": -2,
+      "reviews":[]
     }
     ]
     for landscape in landscapes:
