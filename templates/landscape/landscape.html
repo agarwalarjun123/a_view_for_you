@@ -2,62 +2,61 @@
 {% load static %}
 
 {% block script_block %}
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
-<link rel="stylesheet" href="{% static 'css/review.css' %}">
-<link rel="stylesheet" href="{% static 'css/carousel.css' %}">
-<script src="{% static 'js/carousel.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/review.css' %}">
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/like.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landscape_detail_img.css' %}">
+    <script src="{% static 'js/carousel.js' %}"></script>
+    <script src="{% static 'js/like.js' %}"></script>
+
 {% endblock %}
 
 {% block title_block %}
-{{ landscape.name }}
+    {{ landscape.name }}
 {% endblock %}
 
 {% block body_block %}
-<div style="margin: 3%">
-    <div class="social-share" data-mode="prepend">
-        <a href="javascript:;" class="social-share-icon icon-heart"></a>
-    </div>
-    <div class="heart-btn">
-        <div class="content">
-            <span class="heart"></span>
-            <span class="text">Like</span>
-            <span class="numb"></span>
+    <div style="width:100%;border: 1px solid #d0d0d0;"></div>
+    <div style="margin: 3%">
+        <div class="social-share" data-mode="prepend">
+            <a href="javascript:;" class="social-share-icon icon-heart"></a>
         </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            $('.content').click(function () {
-                $('.content').toggleClass("heart-active")
-                $('.text').toggleClass("heart-active")
-                $('.numb').toggleClass("heart-active")
-                $('.heart').toggleClass("heart-active")
-            });
-        });
-    </script>
-    {% if landscape %}
-    <div class="landscape_banner_container">
-        <div class="landscape_box">
-            <div class="landscape_img-box">
-                <img src="{{ landscape.image.url }}" alt="">
+        <div class="heart-btn">
+            <div class="content">
+                <span class="heart"></span>
+                <span class="text">Like</span>
+                <span class="numb"></span>
             </div>
         </div>
-    </div>
+
+        {% if landscape %}
+            <div class="landscape_banner_container">
+                <div class="landscape_box">
+                    <div class="landscape_img-box">
+                        <img src="{{ landscape.image.url }}" alt="">
+                    </div>
+                </div>
+            </div>
 
 
-    <div style="margin: 5%">
-        <h2> <strong>
+            <div style="margin: 5%">
+            <div class="text_border">
+            <h2><strong>
                 {{ landscape.name }}
             </strong>
-        </h2>
-        <p><i>{{ landscape.description }}</i></p>
-        <p><i><strong>Address: {{ landscape.address }}</strong></i></p>
+            </h2>
+            <p><i>{{ landscape.description }}</i></p>
+            <p><i><strong>Address: {{ landscape.address }}</strong></i></p>
 
-        {%else%}
-        <li><strong>There are no landscapes.</strong></li>
+        {% else %}
+            <li><strong>There are no landscapes.</strong></li>
         {% endif %}
 
         <div id="googleMap" style="width:70%;height:400px;margin: 0 auto;"></div>
@@ -73,50 +72,50 @@
         </script>
 
         <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlVuiiEQ8z9SYTVhndKhwSI3HLGtuHp8&callback=myMap"></script>
-    </div>
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlVuiiEQ8z9SYTVhndKhwSI3HLGtuHp8&callback=myMap"></script>
+        </div>
+        </div>
+        <h3>Photo Gallery</h3>
+        <!---CAROUSEL-->
+        <ul class="slider">
+            {% for p in photos %}
+                <li>
+                    <img class="img-fluid" src="{{ p.image.url }}" alt="{{ p.review_id }}"/>
+                </li>
+            {% endfor %}
 
-    <h3>Photo Gallery</h3>
-    <!---CAROUSEL-->
-    <ul class="slider">
-        {% for p in photos %}
-        <li>
-            <img class="img-fluid" src="{{p.image.url}}" alt="{{p.review_id}}" />
-        </li>
-        {% endfor %}
+        </ul>
+        <!--END CAROUSEL-->
 
-    </ul>
-    <!--END CAROUSEL-->
+        <h3>Recent reviews</h3>
 
-    <h3>Recent reviews</h3>
-
-    <a href="{% url 'landscape:add_review' landscape.slug %}"> Write a review</a>
-    {% if reviews %}
-    {% for r in reviews %}
-    <div class='review-result-container' style="display:block">
-        <div class='review-result-container-content'>
-            <p>
-                {{ r.user_id }} authored a review
-                <span style="float:right;">
+        <a href="{% url 'landscape:add_review' landscape.slug %}"> Write a review</a>
+        {% if reviews %}
+            {% for r in reviews %}
+                <div class='review-result-container' style="display:block">
+                    <div class='review-result-container-content'>
+                        <p>
+                            {{ r.user_id }} authored a review
+                            <span style="float:right;">
                     {{ r.visit_date }}
                 </span>
-            </p>
-            <h4>{{ r.title }}</h4>
-            <div class="review_row">
-                <div class="review_column">
-                    <div><span class="stars-container stars-{{r.rating}}">★★★★★{{r.rating}}</span></div>
+                        </p>
+                        <h4>{{ r.title }}</h4>
+                        <div class="review_row">
+                            <div class="review_column">
+                                <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span></div>
+                            </div>
+                            <div class="review_column">
+                                <p>{{ r.description }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="review_column">
-                    <p>{{ r.description }}</p>
-                </div>
-            </div>
-        </div>
+                <br/>
+            {% endfor %}
+        {% else %}
+            <li><strong>There are no reviews.</strong></li>
+        {% endif %}
     </div>
-    <br />
-    {% endfor %}
-    {%else%}
-    <li><strong>There are no reviews.</strong></li>
-    {%endif%}
-</div>
-</div>
+    </div>
 {% endblock %}
