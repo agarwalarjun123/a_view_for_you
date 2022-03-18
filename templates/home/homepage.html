@@ -14,7 +14,7 @@
 
 {% block body_block %}
 <div style="border:2px solid grey;">
-    <div style="background-image: url(/static/images/skyehome.png);padding: 7%; ">
+    <div style="background-image: url(/static/images/skyehome.png);background-size:100% 100%;padding: 7%; ">
     <div class="search-box">
         <div id='search-box-container'>
             <input type="text" class="form-control" id="query">
@@ -25,7 +25,7 @@
     </div>
 </div>
 </div>
-
+  {% if visited_results|length > 0 %}
   <h4 class = 'gallery-heading'>Most Visited Landscapes</h4>
   <div id="visited-carousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner visited">
@@ -55,8 +55,8 @@
           <span class="visually-hidden">Next</span>
         </button>
     </div>
-
-
+    {% endif %}
+    {% if location_results|length > 0 %}
     <h4 class = 'gallery-heading'>Landscapes near you</h4>
     <div id="location-carousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner location">
@@ -84,6 +84,7 @@
             <span class="visually-hidden">Next</span>
           </button>
       </div>
+      {% endif %}
 {% endblock %}
 
 
