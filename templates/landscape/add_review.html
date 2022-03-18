@@ -2,29 +2,36 @@
 {% load static %}
 
 {% block script_block %}
-<link rel="stylesheet" href="{% static 'css/review.css' %}">
-<link rel="stylesheet" href="{% static 'css/rating.css' %}">
-<script src="{% static 'js/add_review.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/review.css' %}">
+    <link rel="stylesheet" href="{% static 'css/rating.css' %}">
+    <script src="{% static 'js/add_review.js' %}"></script>
 
-<!-- Bootstrap 4 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-<!-- Moment.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"
+            integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
 
-<!-- Font Awesome -->
-<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-<!-- Jquery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Tempus Dominus Bootstrap 4 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+    <!-- Jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css"
+          integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"
+            integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
 
-<!-- Select picker -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <!-- Select picker -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 {% endblock %}
 
 {% block title_block %}
@@ -35,75 +42,80 @@
     <div style="margin: 3%">
         <h3>Leave a review</h3>
 
-        <form enctype="multipart/form-data" id="page_form" method="post" action="{% url 'landscape:add_review' landscape.slug %}">
+        <form enctype="multipart/form-data" id="page_form" method="post"
+              action="{% url 'landscape:add_review' landscape.slug %}">
             {% csrf_token %}
             <div class="form-group">
                 <label for="rating">Your rating:</label><br>
-                <div class="rating"> 
+                <div class="rating">
                     <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
                     <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
                     <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
                     <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
                     <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-            </div>
+                </div>
 
-            <div class="form-group">
-                <label for="visit_date">Date of visit:</label><br>
+                <div class="form-group">
+                    <label for="visit_date">Date of visit:</label><br>
 
-                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                    <input id="visit_date" name="visit_date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                    <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                        <input id="visit_date" name="visit_date" type="text" class="form-control datetimepicker-input"
+                               data-target="#datetimepicker1"/>
+                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label>Activities:</label><br>
-        
-                        <select class="selectpicker" multiple data-live-search="true" id="activities" name="activities">
-                            {% for activity in activities %}
-                            <option value="{{activity.name}}">{{activity.display_name}}</option>
-                            {% endfor %}
-                        </select>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Activities:</label><br>
+
+                            <select class="selectpicker" multiple data-live-search="true" id="activities"
+                                    name="activities">
+                                {% for activity in activities %}
+                                    <option value="{{ activity.name }}">{{ activity.display_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group column">
+                            <label>Facilities:</label><br>
+
+                            <select class="selectpicker" multiple data-live-search="true" id="facilities"
+                                    name="facilities">
+                                {% for accessibility in accessibilities %}
+                                    <option value="{{ accessibility.name }}">{{ accessibility.display_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="form-group column">
-                        <label>Facilities:</label><br>
-        
-                        <select class="selectpicker" multiple data-live-search="true"  id="facilities" name="facilities">
-                            {% for accessibility in accessibilities %}
-                            <option value="{{accessibility.name}}">{{accessibility.display_name}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+
+                <div class="form-group">
+                    <label for="title">Title of your review:</label><br>
+                    <input type="text" class="form-control" id="title" name="title">
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="title">Title of your review:</label><br>
-                <input type="text" class="form-control" id="title" name="title">
-            </div>
-            <div class="form-group">
-                <label for="description">Your review:</label><br>
-                <textarea class="form-control" id="description" name="description"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="images">Upload image</label>
-                <input name="images" id="images" type="file" accept="image/jpg, image/png, image/jpeg" multiple class="form-control-file" >
-            </div>
-            <button type="subimt" class="btn btn-primary">Submit</button>
+                <div class="form-group">
+                    <label for="description">Your review:</label><br>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="images">Upload image</label>
+                    <input name="images" id="images" type="file" accept="image/jpg, image/png, image/jpeg" multiple
+                           class="form-control-file">
+                </div>
+                <button type="subimt" class="btn btn-primary">Submit</button>
         </form>
     </div>
 
-<center>
+    <center>
     <span class='error-message'>
         {% if error_message %}
-        {{error_message}}
+            {{ error_message }}
         {% endif %}
     </span>
 
-</center>
+    </center>
 {% endblock %}

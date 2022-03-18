@@ -4,15 +4,12 @@
     box-sizing: border-box;
 }
 
-.landscape_banner_container {
-    position: relative;
-    top:10%;
-}
 
-.landscape_box{
-    text-align: center;
-    height: 70%;
-    margin: 0 auto;
+.landscape_img-box {
+    margin: 5%;
+    height: 580px !important;
+    display: flex !important;
+    justify-content: center;
     -webkit-box-reflect: below -10px -webkit-linear-gradient(transparent, transparent 80%, rgba(255, 255, 255, .3));
 }
 
