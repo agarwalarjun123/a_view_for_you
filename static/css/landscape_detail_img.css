@@ -1,0 +1,17 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.landscape_banner_container {
+    position: relative;
+    top:20px;
+}
+
+.landscape_box{
+    text-align: center;
+    height: 550px;
+    margin: 0 auto;
+    -webkit-box-reflect: below -10px -webkit-linear-gradient(transparent, transparent 80%, rgba(255, 255, 255, .3));
+}
