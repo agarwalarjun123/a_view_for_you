@@ -48,6 +48,7 @@ div.desc {
   padding-left: 12%;
   display: flex;
   width: 90%;
+  
 }
 #search-box-container {
   width: 100%;
@@ -69,6 +70,7 @@ div.desc {
   box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
   border: none;
   border-radius: 0;
+  cursor: pointer;
 }
 .carousel-inner {
   padding: 1em;
