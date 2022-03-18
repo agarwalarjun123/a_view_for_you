@@ -1,6 +1,6 @@
 .heart-btn{
   position: absolute;
-  top: 135px; right: 165px;
+  top: 140px; right: 90px;
   transform: translate(-50%,-50%);
 }
 .content{
@@ -19,30 +19,19 @@
   background: url('../../static/images/heart_animation.png') no-repeat;
   background-position: left;
   background-size: 2800%;
-  height: 85px;
-  width: 85px;
+  height: 80px;
+  width: 80px;
   top: 50%;
-  left: 19.5%;
+  left: 26%;
   transform: translate(-50%,-50%);
 }
 .text{
-  font-size: 19px;
+  font-size: 18px;
   margin-left: 29px;
   color: grey;
   font-family: 'Montserrat',sans-serif;
 }
-.numb:before{
-  content: '12';
-  font-size: 19px;
-  margin-left: 6px;
-  font-weight: 600;
-  color: #9C9496;
-  font-family: sans-serif;
-}
-.numb.heart-active:before{
-  content: '13';
-  color: red;
-}
+
 .text.heart-active{
   color: red;
 }
