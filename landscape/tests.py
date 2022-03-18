@@ -31,6 +31,7 @@ class LandscapeTest(TestCase):
         """tests that the response redirects with status code 302 to landscape page"""
         response = self.client.get('/landscape/loch/')
         self.assertEqual(response.status_code, 302)
+    
 
 
 def read_image_from_url(url):
