@@ -1,4 +1,7 @@
 
+.landscapes-container{
+    margin: 3%;
+}
 .review-result-container {
     border-style: solid;
     border-radius: 20px;
@@ -61,4 +64,10 @@
 .error-message {
     color: red;
     font-size: small;
+}
+.block{
+    display:block !important
+}
+.right{
+    float:right;
 }

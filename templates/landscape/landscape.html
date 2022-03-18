@@ -17,13 +17,13 @@
 {% endblock %}
 
 {% block body_block %}
-    <div style="margin: 3%">
+    <div class="landscapes-container">
         <h3>Photo Gallery</h3>
         <!---CAROUSEL-->
         <ul class="slider">
             {% for p in photos %}
             <li>
-                <img class="img-fluid" src="{{p.image.url}}" alt="{{p.review_id}}"/>
+                <img class="img-fluid img-responsive" src="{{p.image.url}}" alt="{{p.review_id}}"/>
             </li>
             {% endfor %}
 
@@ -35,11 +35,11 @@
         <a href="{% url 'landscape:add_review' landscape.slug %}" > Write a review</a>
         {% if reviews %}
             {% for r in reviews %}
-            <div class = 'review-result-container' style="display:block">
+            <div class = 'review-result-container block'>
                 <div class = 'review-result-container-content'>
                     <p>
                         {{ r.user_id }} authored a review
-                        <span style="float:right;">
+                        <span class="right">
                             {{ r.visit_date }}
                         </span>
                     </p>
