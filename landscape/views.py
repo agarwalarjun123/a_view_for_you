@@ -91,6 +91,7 @@ def search(request):
     if request.method == 'GET':
         query = request.GET.get('q', '')
 
+
         location = {k: float(request.GET.get(k))
                     for k in ['lat', 'lon']} if request.GET.get('lat') else None
         # filters
@@ -157,10 +158,8 @@ def es_search(query = '', **filters):
             {'review.average_rating': {'order': 'desc'}},
             {'review.count': {'order': 'desc'}}
         ]
-        print(es_query)
         result = es.search(index=settings.ES_INDEX,
                            query=es_query, sort=SORTING)
-        print(result)
         result = [data['_source'] for data in result.body['hits']['hits']]
         return result
        

@@ -105,8 +105,8 @@ def populate_landscapes():
       "accessibilities": ["parking"],
         "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/2b/f3/60/img-20180816-131447-largejpg.jpg?w=1000&h=-1&s=1",
 
-      "latitude": 57,
-      "longitude": -2,
+      "latitude": 57.3087,
+      "longitude": -1.9913,
       "reviews":[]
     },
     {
@@ -115,7 +115,7 @@ def populate_landscapes():
       "address": "Inverness",
       "images": ["https://www.visitinvernesslochness.com/sites/default/files/2021-09/DJI_0271__1920.jpg"],
       "activities": ["swimming"],
-      "accessibilities": ["kid's area, parking, toilets"],
+      "accessibilities": ["kids-area, parking, toilets"],
         "image": "https://www.visitinvernesslochness.com/sites/default/files/2021-09/DJI_0271__1920.jpg",
 
       "latitude": 57,

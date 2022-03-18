@@ -18,7 +18,6 @@
 {% endblock %}
 
 {% block body_block %}
-    <div style="width:1440px;border: 1px solid #d0d0d0;"></div>
     <div style="margin: 3%">
 <div class="social-share" data-mode="prepend">
     <a href="javascript:;" class="social-share-icon icon-heart"></a>
@@ -44,7 +43,7 @@
         <div class="landscape_banner_container">
              <div class="landscape_box">
                  <div class="landscape_img-box">
-                     <img src="{{ landscape.image }}" alt="">
+                     <img src="{{ landscape.image.url }}" alt="">
                  </div>
              </div>
         </div>
@@ -66,8 +65,8 @@
         <script>
         function myMap() {
         let mapProp= {
-          center:new google.maps.LatLng(51.508742,-5.3445433),
-          zoom:5,
+          center:new google.maps.LatLng("{{landscape.latitude}}","{{landscape.longitude}}"),
+          zoom:17,
         };
         let map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
         }

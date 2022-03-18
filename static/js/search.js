@@ -27,6 +27,7 @@ $(() => {
         : filters;
     getLocation(
       (location) => {
+        console.log(location)
         localStorage.setItem("location", JSON.stringify(location));
         filters = {
           ... filters,
@@ -45,7 +46,6 @@ $(() => {
       : filters;
     return filters;
   };
-
   const getLocation = (success, error) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -54,21 +54,22 @@ $(() => {
           lon: position.coords.longitude,
         };
         success(location);
-      }, error);
+      }, error, {
+        enableHighAccuracy: false,
+        timeout: 5000,
+        maximumAge: Infinity
+      });
     }
     else {
       error()
     }
   };
-
-  filters = getFilters();
-
-  search(q, filters);
   $("#search-button-search").on("click", (e) => {
     e.preventDefault();
     filters = getFilters();
     search($("#query").val(), filters);
   });
+  getFilters()
 });
 
 const search = (query = "", filters = {}) => {
