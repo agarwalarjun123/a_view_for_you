@@ -49,20 +49,20 @@
              </div>
         </div>
 
-
     <div style="margin: 5%">
+        <div class="text_border">
            <h2> <strong>
                 {{ landscape.name }}
             </strong>
             </h2>
             <p><i>{{ landscape.description }}</i></p>
-            <p><i><strong>Address: {{ landscape.address }}</strong></i></p>
+            <strong>Address: {{ landscape.address }}</strong>
 
             {%else%}
             <li><strong>There are no landscapes.</strong></li>
             {% endif %}
 
-        <div id="googleMap" style="width:70%;height:400px;margin: 0 auto;"></div>
+        <div id="googleMap" style="width:70%;height:400px;margin: 0 auto;top: 25px;"></div>
         <script>
         function myMap() {
         let mapProp= {
@@ -76,7 +76,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWlVuiiEQ8z9SYTVhndKhwSI3HLGtuHp8&callback=myMap"></script>
         </div>
-
+</div>
         <h3>Photo Gallery</h3>
         <!---CAROUSEL-->
         <ul class="slider">

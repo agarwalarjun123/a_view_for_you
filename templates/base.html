@@ -7,10 +7,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
 
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="{% static 'css/base.css'%}">
+    <link rel="stylesheet" href="{% static 'css/top_search.css'%}">
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/jquery-star.min.js'%}"></script>
@@ -31,14 +33,24 @@
             <div class="header-container">
                 <div class='header-logo'>
                     <a id='header-title' href="{% url 'home:homepage' %}"><img src="{% static 'images/logo.jpeg' %}"
-                            id="logo" alt="logo"> <span>A VIEW FOR YOU</span></a>
+                                                                               id="logo" alt="logo"> <span><strong>A VIEW FOR YOU</strong></span></a>
                 </div>
+
+                        <div class="top_search_wrap">
+                              <div class="top_search">
+                                  <input type="text" class="searchTerm">
+                                  <button type="submit" class="searchButton">
+                                  <i class="fa fa-search"></i>
+                                  </button>
+                              </div>
+                        </div>
+
                 {% if request.path != '/auth/login/' %}
                 <div class='header-button'>
                     {% if user.is_authenticated %}
-                        <a href="{% url 'auth:logout' %}" class="btn btn-outline-primary">LOGOUT</a>
+                        <a href="{% url 'auth:logout' %}" class="btn btn-outline-primary"><strong>LOGOUT</strong></a>
                     {% else %}
-                        <a href="{% url 'auth:login' %}" class="btn btn-outline-primary"> LOGIN/SIGNUP </a>
+                        <a href="{% url 'auth:login' %}" class="btn btn-outline-primary"> <strong>LOGIN/SIGNUP</strong> </a>
                     {% endif %}
                 </div>
                 {% endif %}
