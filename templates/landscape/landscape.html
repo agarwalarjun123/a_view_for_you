@@ -24,14 +24,15 @@
 
 {% block body_block %}
     <div style="width:100%;border: 1px solid #d0d0d0;"></div>
-    <div style="margin: 2%">
-        <p style="font-size: 15px">{{ landscape.name }} , Address: {{ landscape.address }}</p>
+    <div style="margin-left: 7%;">
+        <p style="font-size: 15px;margin-top: 1%">{{ landscape.name }} , Address: {{ landscape.address }}</p>
         {% if '{{ landscape.is_active }} == True' %}
             <i>Open Now</i>
         {% else %}
             <i>Close</i>
         {% endif %}
         <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span></div>
+    </div>
         <div style="margin: 3%">
             <div class="social-share" data-mode="prepend">
                 <a href="javascript:;" class="social-share-icon icon-heart"></a>
