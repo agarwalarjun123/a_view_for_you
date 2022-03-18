@@ -6,41 +6,6 @@
 
 .landscape_banner_container {
     position: relative;
-<<<<<<< Updated upstream
-    left: 180px;
-    bottom: 25px;
-    width: 80%;
-    height: 500px;
-}
-
-
-.landscape_box{
-    width: 1000px;
-    height: 550px;
-    display: flex;
-    flex-direction: row;
-    -webkit-box-reflect: below -10px -webkit-linear-gradient(transparent, transparent 80%, rgba(255, 255, 255, .3));
-}
-
-.landscape_img-box{
-    width: 100px;
-    height: 550px;
-    overflow: hidden;
-    transition: 0.3s;
-}
-
-
-.landscape_img-box:nth-child(3){
-    width: 800px;
-}
-.landscape_img-box:hover{
-    width: 800px;
-}
-
-.landscape_img-box:hover ~ .landscape_img-box:nth-child(3){
-    width: 100px;
-}
-=======
     top:20px;
 }
 
@@ -50,7 +15,3 @@
     margin: 0 auto;
     -webkit-box-reflect: below -10px -webkit-linear-gradient(transparent, transparent 80%, rgba(255, 255, 255, .3));
 }
-
-
-
->>>>>>> Stashed changes
