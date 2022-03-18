@@ -11,15 +11,6 @@ def show_profile(request):
     if request.method == 'GET':
         return render(request, 'profile/profile.html')
 
-@login_required()
-def show_profile_likes(request):
-    if request.method == 'GET':
-        return render(request, 'profile/likes.html')
-
-@login_required()
-def show_profile_reviews(request):
-    if request.method == 'GET':
-        return render(request, 'profile/reviews.html')
 
 # try to filter reviews made by user
 """""
