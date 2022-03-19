@@ -1,19 +1,58 @@
 import os
 import django
+from django.apps import apps as django_apps
 # setting up environment and loading up models
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'a_view_for_you.settings')
 django.setup()
 from django.core.files import File
 from urllib import request,parse
-from landscape.models import Landscape,Photo,Review
+from landscape.models import *
+
 def populate():
-    populate_landscapes()
+  populate_users()
+  populate_landscapes()
 
 def read_image_from_url(url):
     result = request.urlretrieve(url)    
     file_name = parse.urlparse(url).path.split('/')[-1]
     return File(open(result[0], 'rb')), file_name
 
+def populate_users():
+  users = [
+    {
+      "username": "Ana Paola",
+      "email": "anapaola@gmail.com",
+      "password": "test123",
+      "type": django_apps.get_app_config('authentication').type['PASSWORD_LOGIN']
+    },
+    {
+      "username": "Arjun Agarwal",
+      "email": "arjun@gmail.com",
+      "password": "test123",
+      "type": django_apps.get_app_config('authentication').type['PASSWORD_LOGIN']
+    },
+    {
+      "username": "Hannah Tallis",
+      "email": "hannah@gmail.com",
+      "password": "test123",
+      "type": django_apps.get_app_config('authentication').type['PASSWORD_LOGIN']
+    },
+    {
+      "username": "Zhehan Hu",
+      "email": "zhehan@gmail.com",
+      "password": "test123",
+      "type": django_apps.get_app_config('authentication').type['PASSWORD_LOGIN']
+    },
+    {
+      "username": "Luoxuan Peng",
+      "email": "luoxuan@gmail.com",
+      "password": "test123",
+      "type": django_apps.get_app_config('authentication').type['PASSWORD_LOGIN']
+    }
+  ]
+  for u in users:
+    User.objects.get_or_create(username=u['username'], type=u['type'], email = u['email'])
+       
 def populate_reviews():
   reviews = [
     {
@@ -40,23 +79,9 @@ def populate_landscapes():
       "images": ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/BenNevis2005.jpg/1920px-BenNevis2005.jpg"],
       "accessibilities": [],
 
-<<<<<<< Updated upstream
-      "latitude": 56.7973, 
-      "longitude" : -5.0034,
-      "reviews":[]
-=======
       "latitude": 80,
       "longitude" : 90,
-      "reviews":[{
-        "title": "Amazing hike!",
-        "description": "I went on april and i had a great time. It is quite challenging but the view is amazing. ",
-        "rating": "5",
-        "visit_date": "2021-04-21",
-        "facilities": [],
-        "activities": ["fishing"],
-        "user_id": ""
-      }]
->>>>>>> Stashed changes
+      "reviews":[]
     }, 
     {
       "name": "Glencoe",
