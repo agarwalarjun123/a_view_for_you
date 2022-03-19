@@ -51,3 +51,8 @@ class Photo(Base):
 class saved_landscapes (models.Model):
     user_id = models.ForeignKey(Review, on_delete = models.CASCADE, null=True)
     landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE, null=True)
+
+class Like(Base):
+    date = models.DateTimeField(default=now, blank=True)
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+    landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE)

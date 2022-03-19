@@ -21,7 +21,7 @@
                     <div class="profile mr-3">
                         <img src = "{{ user.profile_image.url }}" alt="{{ user.username }}'s profile image" width="130" class="rounded mb-2 img-thumbnail">
                         <h4 class="mt-0 mb-0">{{ user.username|default:"Username" }}</h4>
-                        <p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>Brief Introduction</p>
+                        <!--p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>Brief Introduction</p-->
                     </div>
                 </div>
             </div>
@@ -32,11 +32,11 @@
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
                         <h5 class="font-weight-bold mb-0 d-block">❤{{profile_likes|length}}</h5>
-                        <small class="text-muted"> <a href="#div1" class="fa fa-picture-o mr-1">Likes</a></small>
+                        <small class="text-muted"> <a href="#likes" class="fa fa-picture-o mr-1">Likes</a></small>
                     </li>
                     <li class="list-inline-item">
                         <h5 class="font-weight-bold mb-0 d-block"><span size="10" style="font-size:120%; color:gold">★</span>{{profile_reviews|length}}</h5>
-                        <small class="text-muted"> <a href="#div2" class="fa fa-user-circle-o mr-1">Reviews</a></small>
+                        <small class="text-muted"> <a href="#reviews" class="fa fa-user-circle-o mr-1">Reviews</a></small>
                     </li>
                 </ul>
             </div>
@@ -44,7 +44,7 @@
 
             <!-- likes -->
             <div class="py-4 px-4">
-                <div id="div1" class="d-flex align-items-center justify-content-between mb-3">
+                <div id="likes" class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Favourites</h5>
                 </div>
                 <div class="row">
@@ -68,7 +68,7 @@
 
             <!-- reviews -->
             <div class="py-4 px-4">
-                <div id="div2" class="d-flex align-items-center justify-content-between mb-3">
+                <div id="reviews" class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Recent reviews</h5>
                 </div>
                 <div class="row">

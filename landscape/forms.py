@@ -2,7 +2,7 @@ import datetime
 from email.policy import default
 from unittest.util import _MAX_LENGTH
 from django import forms
-from landscape.models import Review
+from landscape.models import Like, Review
 
 ACTIVITIES = (
 	("boating", "Boating"), 
@@ -34,3 +34,10 @@ class ReviewForm(forms.ModelForm):
 		# Provide an association between the ModelForm and a model
 		model = Review
 		fields = ('title','description', 'rating', 'visit_date', 'facilities', 'activities')
+
+class LikeForm(forms.ModelForm):    
+	# An inline class to provide additional information on the form.
+	class Meta:
+		# Provide an association between the ModelForm and a model
+		model = Like
+		fields = ('date',)

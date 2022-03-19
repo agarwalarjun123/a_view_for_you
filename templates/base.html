@@ -37,7 +37,9 @@
                 {% if request.path != '/auth/login/' %}
                 <div class='header-button'>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'profile:profile' %}" class="btn btn-outline-primary"><strong>Profile</strong></a>
+                    <a href="{% url 'profile:profile' %}"><img src = "{{ user.profile_image.url }}" alt="{{ user.username }}'s profile image" width="36"></a>
+                    <a href="{% url 'profile:profile' %}" style="padding-right: 10px;"><strong>{{ user.username|default:"Username" }}</strong></a>
+                    <!--a href="{% url 'profile:profile' %}" class="btn btn-outline-primary"><strong>Profile</strong></a-->
                     <a href="{% url 'auth:logout' %}" class="btn btn-outline-primary"><strong>LOGOUT</strong></a>
                     {% else %}
                     <a href="{% url 'auth:login' %}" class="btn btn-outline-primary"> <strong>LOGIN/SIGNUP</strong> </a>

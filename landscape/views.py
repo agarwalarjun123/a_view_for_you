@@ -2,9 +2,9 @@ from django.shortcuts import redirect, render
 from django.conf import settings
 from django.http import JsonResponse
 from django.apps import apps as django_apps
-from landscape.models import Landscape, Photo, Review
+from landscape.models import Landscape, Like, Photo, Review
 from authentication.models import User
-from landscape.forms import ReviewForm
+from landscape.forms import LikeForm, ReviewForm
 from django.apps import apps
 from django.contrib.auth.decorators import login_required
 
@@ -166,3 +166,32 @@ def roundRating(rating):
     tens = (number % 100) // 10
     percentage = "" if hundreds == 0 else "1"
     return percentage
+
+@login_required()
+def add_like(request, landscape_name_slug):
+    try:
+        landscape = Landscape.objects.get(slug=landscape_name_slug)
+    except Landscape.DoesNotExist:
+        landscape = None
+
+    if landscape is None:
+        return redirect('/landscape/')
+
+    if request.method == 'POST':
+        form = LikeForm(request.POST)
+        user = User.objects.first()
+        liked = Like.objects.filter(user_id=user, landscape=landscape).exists()
+
+        if liked==False:
+            like = form.save(commit=False)
+            like.landscape_id = landscape
+            # TODO: replace this for the logged user
+            like.user_id = user
+            like.save()
+
+            return redirect('/landscape/')
+
+    context_dict = {}
+    context_dict['form'] = form
+    context_dict['landscape'] = landscape
+    return render(request, 'landscape/landscape.html', context=context_dict)
