@@ -33,15 +33,19 @@
         {% endif %}
         <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span></div>
     </div>
-    <div style="margin: 3%">
-        <div class="social-share" data-mode="prepend">
-            <a href="javascript:;" class="social-share-icon icon-heart"></a>
-        </div>
-        <div class="heart-btn">
-            <div class="content">
-                <span class="heart"></span>
-                <span class="text">Like</span>
-                <span class="numb"></span>
+        <div style="margin: 3%">
+            <div class="social-share" data-mode="prepend">
+                <a href="javascript:;" class="social-share-icon icon-heart"></a>
+            </div>
+            <div class="heart-btn">
+                <div class="content">
+                    <span class="heart"></span>
+                    <span class="text">Like</span>
+                    <span class="numb"></span>
+                </div>
+                <div class="content">
+                    <a href="{% url 'landscape:add_like' landscape.slug %} ">test❤</a>
+                </div>
             </div>
         </div>
 

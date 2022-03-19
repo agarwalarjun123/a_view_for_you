@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from allauth.socialaccount.models import SocialAccount
 from allauth.socialaccount.signals import pre_social_login
 from django.shortcuts import redirect
+from utils.utils import read_image_from_url
 from allauth.exceptions import ImmediateHttpResponse
 
 class Manager(BaseUserManager):
@@ -44,6 +45,9 @@ class User(AbstractUser):
         'authentication').type['PASSWORD_LOGIN'] )
     username = models.CharField(max_length=200)
     USERNAME_FIELD = 'email'
+    def image_url(self):
+        if self.profile_image and hasattr(self.profile_image, 'url'):
+            return self.profile_image.url
     REQUIRED_FIELDS = ['username']
     objects = Manager()
     class Meta:
@@ -56,7 +60,8 @@ def login_handler(sender, user, request, **kwargs):
     except:
         return
     user_data = account.extra_data
-    user.profile_image = user_data['picture']
+    file,name = read_image_from_url(user_data['picture'])
+    user.profile_image.save(name,file)
     user.type = django_apps.get_app_config('authentication').type['GOOGLE_LOGIN']
     user.save()
 

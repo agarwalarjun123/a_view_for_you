@@ -21,40 +21,47 @@
     {% endblock %}
     <title>
         {% block title_block %}
-            A VIEW FOR YOU
+        A VIEW FOR YOU
         {% endblock %}
     </title>
 </head>
 
 <body>
-<div>
-    <div class="header">
-        <div class="header-container">
-            <div class='header-logo'>
-                <a id='header-title' href="{% url 'home:homepage' %}"><img src="{% static 'images/logo.jpeg' %}"
-                                                                           id="logo" alt="logo"> <span><strong style="font-size: 17px">A VIEW FOR YOU</strong></span></a>
-                <i style="margin-left: 10px">You will find your own landscape!</i>
-
-            </div>
-            {% if request.path != '/auth/login/' %}
-                <div class='header-button'>
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'profile:profile' %}" class="btn btn-outline-primary">Profile</a>
-                        <a href="{% url 'auth:logout' %}" class="btn btn-outline-primary"><strong>LOGOUT</strong></a>
-                    {% else %}
-                        <a href="{% url 'auth:login' %}" class="btn btn-outline-primary"> <strong>LOGIN/SIGNUP</strong>
-                        </a>
-                    {% endif %}
+    <div>
+        <div class="header">
+            <div class="header-container">
+                <div class='header-logo'>
+                    <a id='header-title' href="{% url 'home:homepage' %}"><img src="{% static 'images/logo.jpeg' %}"
+                            id="logo" alt="logo"> <span><strong style="font-size: 17px">A VIEW FOR
+                                YOU</strong></span></a>
+                    <!-- <i style="margin-left: 10px">You will find your own landscape!</i> -->
                 </div>
-            {% endif %}
+                <div class = 'header-container'>
+                {% if request.path != '/auth/login/' %}
+                    {% if user.is_authenticated %}
+                    <div id = 'profile-image-container'>
+                        <a href="{% url 'profile:profile' %}"><img id = 'profile-image'
+                                src="{{ user.image_url|default_if_none:'https://cdn3.vectorstock.com/i/1000x1000/34/52/user-icon-male-person-symbol-profile-avatar-sign-vector-19413452.jpg'}}"
+                                alt="{{ user.username }}'s profile image"></a>
+                    </div>
+                    <div class='header-button'>
+                        <a href="{% url 'auth:logout' %}" class="btn btn-outline-primary"><strong>LOGOUT</strong></a>
+                    </div>
+                    {% else %}
+                    <div class='header-button'>
+                        <a href="{% url 'auth:login' %}" class="btn btn-outline-primary"> <strong>LOGIN/SIGNUP</strong></a>
+                    </div>
+                    {% endif %}
+                {% endif %}
+                </div>
+            </div>
         </div>
-    </div>
-    <div class='body-container'>
-        {% block body_block %}
-        {% endblock %}
-    </div>
+        <div class='body-container'>
+            {% block body_block %}
+            {% endblock %}
+        </div>
 
-</div>
+    </div>
 </body>
 
 </html>
