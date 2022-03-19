@@ -5,7 +5,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'a_view_for_you.settings')
 django.setup()
 from django.core.files import File
 from urllib import request,parse
-from landscape.models import Landscape,Photo
+from landscape.models import Landscape,Photo,Review
 def populate():
     populate_landscapes()
 
@@ -14,6 +14,19 @@ def read_image_from_url(url):
     file_name = parse.urlparse(url).path.split('/')[-1]
     return File(open(result[0], 'rb')), file_name
 
+def populate_reviews():
+  reviews = [
+    {
+      "title": "Amazing hike!",
+      "description": "I went on april and i had a great time. It is quite challenging but the view is amazing. ",
+      "rating": "5",
+      "visit_date": "2021-04-21",
+      "facilities": [],
+      "activities": ["fishing"],
+      "user_id": "",
+      "landscape_id": Landscape.objects.filter(name="Ben Nevis"),
+    }
+  ]
 def populate_landscapes():
     landscapes = [
          {
@@ -27,9 +40,23 @@ def populate_landscapes():
       "images": ["https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/BenNevis2005.jpg/1920px-BenNevis2005.jpg"],
       "accessibilities": [],
 
+<<<<<<< Updated upstream
       "latitude": 56.7973, 
       "longitude" : -5.0034,
       "reviews":[]
+=======
+      "latitude": 80,
+      "longitude" : 90,
+      "reviews":[{
+        "title": "Amazing hike!",
+        "description": "I went on april and i had a great time. It is quite challenging but the view is amazing. ",
+        "rating": "5",
+        "visit_date": "2021-04-21",
+        "facilities": [],
+        "activities": ["fishing"],
+        "user_id": ""
+      }]
+>>>>>>> Stashed changes
     }, 
     {
       "name": "Glencoe",

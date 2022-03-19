@@ -23,9 +23,9 @@
 {% endblock %}
 
 {% block body_block %}
-    <div style="width:100%;border: 0.5px solid #d0d0d0;"></div>
-    <div style="margin-left: 7%;">
-        <p style="font-size: 15px;margin-top: 1%">{{ landscape.name }} , Address: {{ landscape.address }}</p>
+    <div class="border-div"></div>
+    <div class="address-container">
+        <p class="address-text">{{ landscape.name }} , Address: {{ landscape.address }}</p>
         {% if '{{ landscape.is_active }} == True' %}
             <i>Open Now</i>
         {% else %}
@@ -33,7 +33,7 @@
         {% endif %}
         <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span></div>
     </div>
-        <div style="margin: 3%">
+        <div class="landscapes-container">
             <div class="social-share" data-mode="prepend">
                 <a href="javascript:;" class="social-share-icon icon-heart"></a>
             </div>
@@ -55,9 +55,8 @@
             </div>
 
 
-            <div style="margin: 5%">
-            <div class="text_border">
-            <h2><strong>
+    <div class="information-box">
+        <h2> <strong>
                 {{ landscape.name }}
             </strong>
             </h2>
@@ -68,7 +67,7 @@
             <li><strong>There are no landscapes.</strong></li>
         {% endif %}
 
-        <div id="googleMap" style="width:70%;height:400px;margin: 0 auto;"></div>
+        <div id="googleMap"></div>
         <script>
             function myMap() {
                 let mapProp = {
@@ -98,14 +97,14 @@
 
         <h3>Recent reviews</h3>
 
-        <a href="{% url 'landscape:add_review' landscape.slug %}"> Write a review</a>
-        {% if reviews %}
-            {% for r in reviews %}
-                <div class='review-result-container' style="display:block">
-                    <div class='review-result-container-content'>
-                        <p>
-                            {{ r.user_id }} authored a review
-                            <span style="float:right;">
+    <a href="{% url 'landscape:add_review' landscape.slug %}"> Write a review</a>
+    {% if reviews %}
+    {% for r in reviews %}
+    <div class='review-result-container block'>
+        <div class='review-result-container-content'>
+            <p>
+                {{ r.user_id }} authored a review
+                <span class="right">
                     {{ r.visit_date }}
                 </span>
                         </p>
