@@ -288,14 +288,15 @@ def populate_landscapes():
             image.save()
         for review in landscape["reviews"]:
           Review.objects.get_or_create(title=review["title"], description=review["description"],
-          rating=review["rating"], visit_date=review["visit_date"], user_id=User.objects.first, 
+          rating=float(review["rating"]), visit_date=review["visit_date"], user_id=User.objects.all().first(), 
           landscape_id=landscape_doc)
 
-          for image in review["images"]:
-            file,name = read_image_from_url(image)
-            image = Photo(landscape_id = landscape_doc, review_id = review)
-            image.image.save(name,file)
-            image.save()
+          if "images" in review:
+            for image in review["images"]:
+              file,name = read_image_from_url(image)
+              image = Photo(landscape_id = landscape_doc, review_id = Review.objects.all().last())
+              image.image.save(name,file)
+              image.save()
 
 if __name__ == "__main__":
     populate()
