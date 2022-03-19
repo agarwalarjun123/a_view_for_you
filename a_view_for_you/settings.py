@@ -44,11 +44,11 @@ INSTALLED_APPS = [
     'authentication',
     'landscape',
     'home',
+    'profiles',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'profile'
 ]
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',

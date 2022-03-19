@@ -1,6 +1,11 @@
 .header {
-    min-height: '10%';    
+    min-height: 10%;
 }
+#profile-image {
+    width: 50px;
+    height: 50px;
+}
+
 .header-container {
     display: flex;
     flex-direction:row;
@@ -12,13 +17,24 @@
     color: black;
 }
 .header-button {
-    padding: 5px 20px 5px 5px;
-
+    padding: 5px 18px 5px 5px;
 }
 .header-logo {
     padding: 5px 20px 5px 5px;
 }
 #logo {
-    height: 15%;
-    width: 15%;
+    height: 50px;
+    width: 50px;
+}
+#right-container {
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo > i{
+    font-size: 20px;
+    text-shadow: 5px 5px 5px deepskyblue;
+    color: #373b3e;
 }

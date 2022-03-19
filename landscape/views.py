@@ -5,15 +5,15 @@ from django.apps import apps as django_apps
 from landscape.models import Landscape, Like, Photo, Review
 from authentication.models import User
 from landscape.forms import LikeForm, ReviewForm
-from django.apps import apps
+from landscape.models import Landscape, Photo, Review
 from django.contrib.auth.decorators import login_required
 
 
 def index(request):
 
     context_dict = {}
-    context_dict['activities'] = apps.get_app_config('landscape').activities
-    context_dict['accessibilities'] = apps.get_app_config(
+    context_dict['activities'] = django_apps.get_app_config('landscape').activities
+    context_dict['accessibilities'] = django_apps.get_app_config(
         'landscape').accessibilities
     if request.method == 'GET':
         if request.GET.get('q'):
@@ -61,23 +61,20 @@ def add_review(request, landscape_name_slug):
         if form.is_valid():
             review = form.save(commit=False)
             review.landscape_id = landscape
-            user = User.objects.first()
-            # TODO: replace this for the logged user
-            review.user_id = user
+            review.user_id = request.user
             review.save()
 
             for image in images:
-                photo = Photo.objects.create(review_id =review, image = image, landscape_id = landscape)
-
-            return redirect('/landscape/')
+                Photo.objects.create(review_id =review, image = image, landscape_id = landscape)
+            return redirect('landscape:index')
         print(form.errors)
         error_message = form.errors
 
     context_dict = {}
     context_dict['form'] = form
     context_dict['landscape'] = landscape
-    context_dict['activities'] = apps.get_app_config('landscape').activities
-    context_dict['accessibilities'] = apps.get_app_config(
+    context_dict['activities'] = django_apps.get_app_config('landscape').activities
+    context_dict['accessibilities'] = django_apps.get_app_config(
         'landscape').accessibilities
     context_dict['error_message'] = error_message
     return render(request, 'landscape/add_review.html', context=context_dict)
@@ -86,8 +83,6 @@ def add_review(request, landscape_name_slug):
 def search(request):
     if request.method == 'GET':
         query = request.GET.get('q', '')
-
-
         location = {k: float(request.GET.get(k))
                     for k in ['lat', 'lon']} if request.GET.get('lat') else None
         # filters

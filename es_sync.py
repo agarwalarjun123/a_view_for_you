@@ -43,6 +43,7 @@ def read_from_db():
 
 def read_review(landscape_id):
     result = Review.objects.filter(landscape_id = landscape_id).aggregate(average_rating = Avg('rating',default = 0), count = Count('id'))
+    result['average_rating'] = 0 if result['average_rating'] is None else  result['average_rating']
     return result
 if __name__ == '__main__':
     read_from_db()

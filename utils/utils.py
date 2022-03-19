@@ -2,6 +2,8 @@ from django.db import models
 from elasticsearch import Elasticsearch
 from django.conf import settings
 from django.apps import apps as django_apps
+from django.core.files import File
+from urllib import request,parse
 class Base(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -71,3 +73,7 @@ def es_search(query = '', **filters):
                            query=es_query, sort=SORTING)
         result = [data['_source'] for data in result.body['hits']['hits']]
         return result
+def read_image_from_url(url):
+    result = request.urlretrieve(url)    
+    file_name = parse.urlparse(url).path.split('/')[-1]
+    return File(open(result[0], 'rb')), file_name

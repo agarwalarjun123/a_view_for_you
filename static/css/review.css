@@ -1,4 +1,7 @@
 
+.landscapes-container{
+    margin: 3%;
+}
 .review-result-container {
     border-style: solid;
     border-radius: 20px;
@@ -61,4 +64,28 @@
 .error-message {
     color: red;
     font-size: small;
+}
+.block{
+    display:block !important
+}
+.right{
+    float:right;
+}
+.information-box{
+    margin: 5%;
+}
+#googleMap{
+    width:70%;
+    height:400px;
+    margin: 0 auto;
+}
+.border-div{
+    width:100%;border: 0.5px solid #d0d0d0;
+}
+.address-container{
+    margin-left: 7%;
+}
+.address-text{
+    font-size: 15px;
+    margin-top: 1%
 }
