@@ -37,7 +37,7 @@
                 {% if request.path != '/auth/login/' %}
                 <div class='header-button'>
                     {% if user.is_authenticated %}
-                    <a href="{% url 'profile:profile' %}" class="btn btn-outline-primary">Profile</a>
+                    <a href="{% url 'profile:profile' %}" class="btn btn-outline-primary"><strong>Profile</strong></a>
                     <a href="{% url 'auth:logout' %}" class="btn btn-outline-primary"><strong>LOGOUT</strong></a>
                     {% else %}
                     <a href="{% url 'auth:login' %}" class="btn btn-outline-primary"> <strong>LOGIN/SIGNUP</strong> </a>

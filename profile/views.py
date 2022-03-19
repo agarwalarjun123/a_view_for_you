@@ -13,7 +13,7 @@ def show_profile(request):
 
 
 # try to filter reviews made by user
-"""""
+
 @login_required()
 def show_profile_reviews(request):
     # Create a context dictionary which we can pass
@@ -21,7 +21,7 @@ def show_profile_reviews(request):
     context_dict = {}
     try:
         profile_reviews = Review.objects.filter(
-            user_id=User.id).order_by('-visit_date')
+            user_id=request.user.id).order_by('-visit_date')
         for r in profile_reviews:
             r.rating = roundRating(r.rating)
         context_dict['profile_reviews'] = profile_reviews
@@ -29,7 +29,7 @@ def show_profile_reviews(request):
         # do nothing
         context_dict['profile_reviews'] = None
     return render(request, 'profile/profile.html', context=context_dict)
-"""
+
 
 # try to filter landscapes liked by user
 """

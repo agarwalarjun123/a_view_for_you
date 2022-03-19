@@ -5,6 +5,7 @@
 {% block script_block %}
 <link rel="stylesheet" href="{% static 'css/profile.css'%}">
 <link rel="stylesheet" href="{% static 'css/review.css' %}">
+<script src = "{% static 'js/homepage.js'%}"></script>
 {% endblock %}
 
 {% block body_block %}
@@ -30,13 +31,16 @@
             <div class="bg-light p-4 d-flex justify-content-end text-center">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">{{profile_likes|length}}</h5><small class="text-muted"> <a href="#div1" class="fa fa-picture-o mr-1">Likes</a></small>
+                        <h5 class="font-weight-bold mb-0 d-block">❤{{profile_likes|length}}</h5>
+                        <small class="text-muted"> <a href="#div1" class="fa fa-picture-o mr-1">Likes</a></small>
                     </li>
                     <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">{{profile_reviews|length}}</h5><small class="text-muted"> <a href="#div2" class="fa fa-user-circle-o mr-1">Reviews</a></small>
+                        <h5 class="font-weight-bold mb-0 d-block"><span size="10" style="font-size:120%; color:gold">★</span>{{profile_reviews|length}}</h5>
+                        <small class="text-muted"> <a href="#div2" class="fa fa-user-circle-o mr-1">Reviews</a></small>
                     </li>
                 </ul>
             </div>
+
 
             <!-- likes -->
             <div class="py-4 px-4">
@@ -71,44 +75,71 @@
                     <!-- list reviews -->
                     {% if profile_reviews %}
                         {% for r in profile_reviews %}
-                        <div class = 'review-result-container' style="display:block">
-                            <div class = 'review-result-container-content'>
+                        <div class='review-result-container' style="display:block">
+                            <div class='review-result-container-content'>
                                 <p>
+                                    You authored a review
                                     <span style="float:right;">
-                                        {{ r.visit_date|default:"Date" }}
-                                    </span>
+                        {{ r.visit_date|default:"Date" }}
+                    </span>
                                 </p>
-                                <h4>{{ r.title|default:"Tile" }}</h4>
-                           <div class="review_row">
-                                <div class="review_column">
-                                    <div><span class="stars-container stars-{{r.rating}}">★★★★★{{r.rating}}</span></div>
+                                <h4>{{ r.title|default:"Title" }}</h4>
+                                <div class="review_row">
+                                    <div class="review_column">
+                                        <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="review_column">
+                                        <p>{{ r.description|default:"description" }}</p>
+                                    </div>
                                 </div>
-                                <div class="review_column">
-                                    <p>{{ r.description|default:"description" }}</p>
-                                </div>
-                          </div>
+                            </div>
                         </div>
                         {% endfor %}
                         {%else%}
                         <!-- if no reviews, show a template for testing -->
                         <li><strong>You have no reviews.</strong></li>
-                            <div class = 'review-result-container' style="display:block">
-                                <div class = 'review-result-container-content'>
+                            <div class='review-result-container' style="display:block">
+                                <div class='review-result-container-content'>
                                     <p>
+                                        You authored a review
                                         <span style="float:right;">
-                                            {{ r.visit_date|default:"Date" }}
-                                        </span>
+                            {{ r.visit_date|default:"Date" }}
+                        </span>
                                     </p>
-                                    <h4>{{ r.title|default:"Tile" }}</h4>
-                               <div class="review_row">
-                                    <div class="review_column">
-                                        <div><span class="stars-container stars-{{r.rating}}">★★★★★{{r.rating}}</span></div>
+                                    <h4>{{ r.title|default:"Title" }}</h4>
+                                    <div class="review_row">
+                                        <div class="review_column">
+                                            <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="review_column">
+                                            <p>{{ r.description|default:"description" }}</p>
+                                        </div>
                                     </div>
-                                    <div class="review_column">
-                                        <p>{{ r.description|default:"description" }}</p>
-                                    </div>
-                              </div>
+                                </div>
                             </div>
+                            <div class='review-result-container' style="display:block">
+                                <div class='review-result-container-content'>
+                                    <p>
+                                        You authored a review
+                                        <span style="float:right;">
+                            {{ r.visit_date|default:"Date" }}
+                        </span>
+                                    </p>
+                                    <h4>{{ r.title|default:"Title" }}</h4>
+                                    <div class="review_row">
+                                        <div class="review_column">
+                                            <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="review_column">
+                                            <p>{{ r.description|default:"description" }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                     {%endif%}
                 </div>
             </div>
