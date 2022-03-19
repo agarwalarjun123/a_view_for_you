@@ -9,15 +9,15 @@ from django.core.files import File
 
 def mocked_f(**kwargs):
     return []
-@patch.object(utils,'es_search',Mock(return_value=[]))
-
 class LandscapeTest(TestCase):
     def setUp(self):
         populate_landscapes()
+    @patch.object(utils,'es_search',Mock(return_value=[]))
     def test_homepage_up(self):
         """tests that the response status_code is 200"""
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
+    @patch.object(utils,'es_search',Mock(return_value=[]))
     def tests_homepage_headers(self):
         """tests that the response should not contain the headers"""
         response = self.client.get('/')

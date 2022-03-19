@@ -4,8 +4,7 @@ from django.apps import apps as django_apps
 # setting up environment and loading up models
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'a_view_for_you.settings')
 django.setup()
-from django.core.files import File
-from urllib import request,parse
+from utils.utils import read_image_from_url
 from landscape.models import *
 
 def populate():
@@ -17,11 +16,6 @@ def empt_tables():
   Photo.objects.all().delete()
   Review.objects.all().delete()
   Landscape.objects.all().delete()
-
-def read_image_from_url(url):
-    result = request.urlretrieve(url)    
-    file_name = parse.urlparse(url).path.split('/')[-1]
-    return File(open(result[0], 'rb')), file_name
 
 def populate_users():
   users = [
@@ -59,6 +53,20 @@ def populate_users():
   for u in users:
     User.objects.get_or_create(username=u['username'], type=u['type'], email = u['email'])
 
+def populate_reviews():
+    reviews = [
+        {
+            "title": "Amazing hike!",
+            "description": "I went on april and i had a great time. It is quite challenging but the view is amazing. ",
+            "rating": "5",
+            "visit_date": "2021-04-21",
+            "facilities": [],
+            "activities": ["fishing"],
+            "user_id": "",
+            "landscape_id": Landscape.objects.filter(name="Ben Nevis"),
+        }
+    ]
+
 def populate_landscapes():
     landscapes = [
          {
@@ -93,8 +101,7 @@ def populate_landscapes():
       "accessibilities": [
         "wheelchair"
       ],
-        "image": "https://thumbs.dreamstime.com/b/remote-mountain-cottage-glencoe-picture-postcard-scottish-highlands-79753771.jpg",
-
+      "image": "https://thumbs.dreamstime.com/b/remote-mountain-cottage-glencoe-picture-postcard-scottish-highlands-79753771.jpg",
       "latitude": 56.6830, 
       "longitude": -5.1020,
       "reviews":[{
@@ -156,85 +163,84 @@ def populate_landscapes():
       "longitude": 77.0424,
       "reviews": []
     },
-        {
-      "name": "The Quiraing",
-      "description": "This is an essential walk for any photographer as it passes though some of the most spectacular landscapes in Scotland. As part of the Trotternish ridge it has been formed by a massive landslip which has created high cliffs, hidden plateaus and pinnacles of rock.",
-      "address": "North of Skye - Trotternish",
-      "images": ["https://upload.wikimedia.org/wikipedia/commons/a/a7/South_over_the_Quiraing%2C_Isle_of_Skye.jpg"],
-      "activities": ["hiking"],
-      "accessibilities": ["parking"],
+    {
+        "name": "The Quiraing",
+        "description": "This is an essential walk for any photographer as it passes though some of the most spectacular landscapes in Scotland. As part of the Trotternish ridge it has been formed by a massive landslip which has created high cliffs, hidden plateaus and pinnacles of rock.",
+        "address": "North of Skye - Trotternish",
+        "images": ["https://upload.wikimedia.org/wikipedia/commons/a/a7/South_over_the_Quiraing%2C_Isle_of_Skye.jpg"],
+        "activities": ["hiking"],
+        "accessibilities": ["parking"],
         "image": "https://upload.wikimedia.org/wikipedia/commons/a/a7/South_over_the_Quiraing%2C_Isle_of_Skye.jpg",
 
-      "latitude": 57.6440, 
-      "longitude": -6.2654,
-      "reviews":[]
-    }, 
+        "latitude": 57.6440,
+        "longitude": -6.2654,
+        "reviews":[]
+    },
     {
-    "name": "Newburgh Beach",
-      "description": "Just 20 minutes north of Aberdeen, you find yourself at a wonderful sandy beach and home of an extensive sand dune system at the mouth of the Ythan River. A must see is the 400 strong colony of seals at the mouth of Ythan River.",
-      "address": "20 Minutes north of Aberdeen, Newburgh",
-      "images": ["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/2b/f3/60/img-20180816-131447-largejpg.jpg?w=1000&h=-1&s=1"],
-      "activities": [""],
-      "accessibilities": ["parking"],
+        "name": "Newburgh Beach",
+        "description": "Just 20 minutes north of Aberdeen, you find yourself at a wonderful sandy beach and home of an extensive sand dune system at the mouth of the Ythan River. A must see is the 400 strong colony of seals at the mouth of Ythan River.",
+        "address": "20 Minutes north of Aberdeen, Newburgh",
+        "images": ["https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/2b/f3/60/img-20180816-131447-largejpg.jpg?w=1000&h=-1&s=1"],
+        "activities": [""],
+        "accessibilities": ["parking"],
         "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/2b/f3/60/img-20180816-131447-largejpg.jpg?w=1000&h=-1&s=1",
 
-      "latitude": 57.3087,
-      "longitude": -1.9913,
-      "reviews":[]
+        "latitude": 57.3087,
+        "longitude": -1.9913,
+        "reviews":[]
     },
     {
-    "name": "Loch Ness",
-      "description": "Loch Ness is a large freshwater loch in the Scottish Highlands extending for approximately 37 kilometres southwest of Inverness. It takes its name from the River Ness, which flows from the northern end.",
-      "address": "Inverness",
-      "images": ["https://www.visitinvernesslochness.com/sites/default/files/2021-09/DJI_0271__1920.jpg"],
-      "activities": ["swimming", "boating"],
-      "accessibilities": ["kids-area, parking, toilets"],
+        "name": "Loch Ness",
+        "description": "Loch Ness is a large freshwater loch in the Scottish Highlands extending for approximately 37 kilometres southwest of Inverness. It takes its name from the River Ness, which flows from the northern end.",
+        "address": "Inverness",
+        "images": ["https://www.visitinvernesslochness.com/sites/default/files/2021-09/DJI_0271__1920.jpg"],
+        "activities": ["swimming", "boating"],
+        "accessibilities": ["kids-area, parking, toilets"],
         "image": "https://www.visitinvernesslochness.com/sites/default/files/2021-09/DJI_0271__1920.jpg",
 
-      "latitude": 57.3353, 
-      "longitude": -4.4193,
-      "reviews":[]
+        "latitude": 57.3353,
+        "longitude": -4.4193,
+        "reviews":[]
     },
     {
-    "name": "Old Man of Storr",
-      "description": "The Storr is a rocky hill on the Trotternish peninsula of the Isle of Skye in Scotland. The hill presents a steep rocky eastern face overlooking the Sound of Raasay, contrasting with gentler grassy slopes to the west.",
-      "address": "Isle of Skye",
-      "images": ["https://www.myhighlands.de/wp-content/uploads/2020/05/Old-Man-Panorama-01-1536x864.jpg.webp"],
-      "activities": ["hiking"],
-      "accessibilities": ["parking", "pet-friendly"],
+        "name": "Old Man of Storr",
+        "description": "The Storr is a rocky hill on the Trotternish peninsula of the Isle of Skye in Scotland. The hill presents a steep rocky eastern face overlooking the Sound of Raasay, contrasting with gentler grassy slopes to the west.",
+        "address": "Isle of Skye",
+        "images": ["https://www.myhighlands.de/wp-content/uploads/2020/05/Old-Man-Panorama-01-1536x864.jpg.webp"],
+        "activities": ["hiking"],
+        "accessibilities": ["parking", "pet-friendly"],
         "image": "https://www.myhighlands.de/wp-content/uploads/2020/05/Old-Man-Panorama-01-1536x864.jpg.webp",
 
-      "latitude": 57.5073, 
-      "longitude": -6.1836,
-      "reviews":[]
+        "latitude": 57.5073,
+        "longitude": -6.1836,
+        "reviews":[]
     },
     {
-     "name": "Galloway International Dark Sky Park",
-      "description": "A Dark Sky Park is a place with exceptionally dark night skies. It is also a place where people have committed to keeping those skies dark, by controlling light pollution.",
-      "address": "Galloway Forest Patk, Dumfries and Galloway",
-      "images": ["https://forestryandland.gov.scot/images/Blog/2024160.jpg"],
-      "activities": ["hiking", "camping"],
-      "accessibilities": ["parking", "toilets"],
+        "name": "Galloway International Dark Sky Park",
+        "description": "A Dark Sky Park is a place with exceptionally dark night skies. It is also a place where people have committed to keeping those skies dark, by controlling light pollution.",
+        "address": "Galloway Forest Patk, Dumfries and Galloway",
+        "images": ["https://forestryandland.gov.scot/images/Blog/2024160.jpg"],
+        "activities": ["hiking", "camping"],
+        "accessibilities": ["parking", "toilets"],
         "image": "https://forestryandland.gov.scot/images/Blog/2024160.jpg",
 
-      "latitude": 55.1099, 
-      "longitude": -4.4367,
-      "reviews":[]
+        "latitude": 55.1099,
+        "longitude": -4.4367,
+        "reviews":[]
     },
-     {
-     "name": "Arthurs Seat",
-      "description": "Arthur's Seat is an ancient volcano which is the main peak of the group of hills in Edinburgh, Scotland, which form most of Holyrood Park.",
-      "address": "Edinburgh",
-      "images": ["https://www.walkhighlands.co.uk/lothian/1_2/1_2_2l.JPG"],
-      "activities": ["hiking"],
-      "accessibilities": ["parking"],
+    {
+        "name": "Arthurs Seat",
+        "description": "Arthur's Seat is an ancient volcano which is the main peak of the group of hills in Edinburgh, Scotland, which form most of Holyrood Park.",
+        "address": "Edinburgh",
+        "images": ["https://www.walkhighlands.co.uk/lothian/1_2/1_2_2l.JPG"],
+        "activities": ["hiking"],
+        "accessibilities": ["parking"],
         "image": "https://www.walkhighlands.co.uk/lothian/1_2/1_2_2l.JPG",
-
-      "latitude": 55.9444, 
-      "longitude": -3.1615,
-      "reviews":[]
+        "latitude": 55.9444, 
+        "longitude": -3.1615,
+        "reviews":[]
     },
-     {
+    {
      "name": "The Cobbler",
       "description": "The Cobbler is an 884 metres mountain located near the head of Loch Long in Argyll and Bute, Scotland. It is a Corbett, and is an important site for rock climbing in the Southern Highlands.",
       "address": "The Cobbler,Arrochar,G83 7AS",
@@ -256,35 +262,36 @@ def populate_landscapes():
       "accessibilities": ["parking"],
         "image": "https://www.wildlochaber.com/sites/wildlochaber.com/files/walking/steall_gorge_02.jpg",
 
-      "latitude": 56.7709, 
-      "longitude": -4.9795,
-      "reviews":[]
-    },
-    {
-     "name": "The Devils Pulpit",
-      "description": "Waterfall & stream flowing between towering rock formations, accessed by a steep stone staircase.",
-      "address": "Glasgow, G63 9QJ",
-      "images": ["https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1"],
-      "activities": ["hiking"],
-      "accessibilities": [""],
-        "image": "https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1",
+            "latitude": 56.7709,
+            "longitude": -4.9795,
+            "reviews":[]
+        },
+        {
+            "name": "The Devils Pulpit",
+            "description": "Waterfall & stream flowing between towering rock formations, accessed by a steep stone staircase.",
+            "address": "Glasgow, G63 9QJ",
+            "images": ["https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1"],
+            "activities": ["hiking"],
+            "accessibilities": [""],
+            "image": "https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1",
 
-      "latitude": 56.0344, 
-      "longitude": -4.4138,
-      "reviews":[]
-    }
+            "latitude": 56.0344,
+            "longitude": -4.4138,
+            "reviews":[]
+        }
     ]
     for landscape in landscapes:
-        landscape_doc = {key: landscape[key] for key in list(set(landscape.keys()) & set(['name','address','description','activities','accessibilities','latitude','longitude']))}
+        landscape_doc = {key: landscape[key] for key in list(set(landscape.keys()) & set(
+            ['name', 'address', 'description', 'activities', 'accessibilities', 'latitude', 'longitude']))}
         landscape_doc = Landscape(**landscape_doc)
         if landscape['image']:
-            file,name = read_image_from_url(landscape['image'])
-            landscape_doc.image.save(name,file)
+            file, name = read_image_from_url(landscape['image'])
+            landscape_doc.image.save(name, file)
         landscape_doc.save()
         for image in landscape["images"]:
-            file,name = read_image_from_url(image)
-            image = Photo(landscape_id = landscape_doc)
-            image.image.save(name,file)
+            file, name = read_image_from_url(image)
+            image = Photo(landscape_id=landscape_doc)
+            image.image.save(name, file)
             image.save()
         for review in landscape["reviews"]:
           Review.objects.get_or_create(title=review["title"], description=review["description"],

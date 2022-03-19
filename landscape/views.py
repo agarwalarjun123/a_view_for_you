@@ -1,9 +1,11 @@
 from django.shortcuts import redirect, render
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.apps import apps as django_apps
-from landscape.models import Landscape, Like, Photo, Review
+from django.views.decorators.csrf import csrf_exempt
+from landscape.models import Landscape, Photo, Review, saved_landscapes
 from authentication.models import User
+import json
 from landscape.forms import LikeForm, ReviewForm
 from landscape.models import Landscape, Photo, Review
 from django.contrib.auth.decorators import login_required
@@ -33,9 +35,15 @@ def show_landscape(request, landscape_name_slug):
         
         for r in reviews:
             r.rating = roundRating(r.rating)
+        liked = False
+        try:
+            liked = True if saved_landscapes.objects.get(landscape_id = landscape, user_id = request.user) else False
+        except:
+            liked = False
         context_dict['reviews'] = reviews
         context_dict['landscape'] = landscape
         context_dict['photos'] = photos
+        context_dict['liked'] = liked
         context_dict['url'] = Photo.objects.first().image.url
         return render(request, 'landscape/landscape.html', context=context_dict)
     except Landscape.DoesNotExist:
@@ -155,6 +163,9 @@ def es_search(query = '', **filters):
        
 
 
+
+
+
 def roundRating(rating):
     number = int(rating*100/5)
     hundreds = (number % 1000) // 100
@@ -163,30 +174,19 @@ def roundRating(rating):
     return percentage
 
 @login_required()
+@csrf_exempt
 def add_like(request, landscape_name_slug):
     try:
         landscape = Landscape.objects.get(slug=landscape_name_slug)
     except Landscape.DoesNotExist:
-        landscape = None
-
-    if landscape is None:
         return redirect('/landscape/')
-
-    if request.method == 'POST':
-        form = LikeForm(request.POST)
-        user = User.objects.first()
-        liked = Like.objects.filter(user_id=user, landscape=landscape).exists()
-
-        if liked==False:
-            like = form.save(commit=False)
-            like.landscape_id = landscape
-            # TODO: replace this for the logged user
-            like.user_id = user
-            like.save()
-
-            return redirect('/landscape/')
-
-    context_dict = {}
-    context_dict['form'] = form
-    context_dict['landscape'] = landscape
-    return render(request, 'landscape/landscape.html', context=context_dict)
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        liked = data.get('liked', True)
+        if liked: 
+            saved_landscapes.objects.update_or_create(landscape_id= landscape, user_id = request.user)
+        else:
+            saved_landscapes.objects.filter(user_id = request.user, landscape_id = landscape).delete()
+        return JsonResponse({'data': {'message': 'like updated'}, 'is_success': True})
+    else:
+        raise Http404

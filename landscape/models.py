@@ -48,10 +48,10 @@ class Photo(Base):
     landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE, null=True)
     image = models.ImageField(upload_to='landscapes', null=True, blank=True)
 
-class saved_landscapes (models.Model):
-    user_id = models.ForeignKey(Review, on_delete = models.CASCADE, null=True)
+class saved_landscapes (Base):
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
     landscape_id = models.ForeignKey(Landscape, on_delete = models.CASCADE, null=True)
-
+    
 class Like(Base):
     date = models.DateTimeField(default=now, blank=True)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE)

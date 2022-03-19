@@ -37,16 +37,22 @@
             <div class="social-share" data-mode="prepend">
                 <a href="javascript:;" class="social-share-icon icon-heart"></a>
             </div>
+            {% if liked %}
+            <div class="heart-btn">
+                <div class="content heart-active">
+                    <span class="heart heart-active"></span>
+                    <span class="text heart-active">Like</span>
+                </div>
+            </div>
+            {% else %}
             <div class="heart-btn">
                 <div class="content">
                     <span class="heart"></span>
                     <span class="text">Like</span>
-                    <span class="numb"></span>
-                </div>
-                <div class="content">
-                    <a href="{% url 'landscape:add_like' landscape.slug %} ">test❤</a>
                 </div>
             </div>
+            {% endif %}
+            
         </div>
 
         {% if landscape %}
