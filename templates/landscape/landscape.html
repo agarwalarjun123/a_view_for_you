@@ -62,9 +62,6 @@
             </h2>
             <p><i>{{ landscape.description }}</i></p>
             <p><i><strong>Address: {{ landscape.address }}</strong></i></p>
-
-        {% else %}
-            <li><strong>There are no landscapes.</strong></li>
         {% endif %}
 
         <div id="googleMap"></div>
@@ -122,8 +119,6 @@
                 </div>
                 <br/>
             {% endfor %}
-        {% else %}
-            <li><strong>There are no reviews.</strong></li>
         {% endif %}
     </div>
     </div>
