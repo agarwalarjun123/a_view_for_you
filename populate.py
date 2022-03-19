@@ -9,8 +9,14 @@ from urllib import request,parse
 from landscape.models import *
 
 def populate():
+  empt_tables()
   populate_users()
   populate_landscapes()
+
+def empt_tables():
+  Photo.objects.all().delete()
+  Review.objects.all().delete()
+  Landscape.objects.all().delete()
 
 def read_image_from_url(url):
     result = request.urlretrieve(url)    
@@ -52,20 +58,7 @@ def populate_users():
   ]
   for u in users:
     User.objects.get_or_create(username=u['username'], type=u['type'], email = u['email'])
-       
-def populate_reviews():
-  reviews = [
-    {
-      "title": "Amazing hike!",
-      "description": "I went on april and i had a great time. It is quite challenging but the view is amazing. ",
-      "rating": "5",
-      "visit_date": "2021-04-21",
-      "facilities": [],
-      "activities": ["fishing"],
-      "user_id": "",
-      "landscape_id": Landscape.objects.filter(name="Ben Nevis"),
-    }
-  ]
+
 def populate_landscapes():
     landscapes = [
          {
@@ -81,7 +74,15 @@ def populate_landscapes():
 
       "latitude": 80,
       "longitude" : 90,
-      "reviews":[]
+      "reviews":[{
+        "title": "Amazing hike!",
+        "description": "I went on april and i had a great time. It is quite challenging but the view is amazing. ",
+        "rating": "5",
+        "visit_date": "2021-04-21",
+        "facilities": [],
+        "activities": ["fishing"],
+        "user_id": User.objects.first,
+      }]
     }, 
     {
       "name": "Glencoe",
@@ -96,7 +97,28 @@ def populate_landscapes():
 
       "latitude": 56.6830, 
       "longitude": -5.1020,
-      "reviews":[]
+      "reviews":[{
+        "title": "I love it",
+        "description": "Glencoe is such an amazing place, it looks magical",
+        "rating": "5",
+        "visit_date": "2021-04-21",
+        "facilities": [],
+        "activities": [],
+        "user_id": User.objects.first,
+        "images": ["https://thumbs.dreamstime.com/b/river-coe-glencoe-scotland-rising-sun-lighting-mountain-peaks-highlands-79756495.jpg"]
+      },
+      {
+        "title": "Beautiful place",
+        "description": "I really recommend it, it is my favourite place in Scotland",
+        "rating": "5",
+        "visit_date": "2021-04-10",
+        "facilities": [],
+        "activities": ["boating"],
+        "user_id": User.objects.last,
+        "images": ["https://thumbs.dreamstime.com/b/moody-panoramic-three-sisters-mountains-glencoe-covered-rusty-moorlands-scotland-150292777.jpg",
+          "https://thumbs.dreamstime.com/b/open-road-glencoe-scotland-scottish-highlands-stunning-landscape-90932063.jpg"
+        ]
+      }]
     },
     {
       "name": "Loch Lomond",
@@ -264,8 +286,16 @@ def populate_landscapes():
             image = Photo(landscape_id = landscape_doc)
             image.image.save(name,file)
             image.save()
-            
+        for review in landscape["reviews"]:
+          Review.objects.get_or_create(title=review["title"], description=review["description"],
+          rating=review["rating"], visit_date=review["visit_date"], user_id=User.objects.first, 
+          landscape_id=landscape_doc)
 
+          for image in review["images"]:
+            file,name = read_image_from_url(image)
+            image = Photo(landscape_id = landscape_doc, review_id = review)
+            image.image.save(name,file)
+            image.save()
 
 if __name__ == "__main__":
     populate()
