@@ -42,7 +42,7 @@
                     <div id = 'profile-image-container'>
                         <a href="{% url 'profile:profile' %}"><img id = 'profile-image'
                                 src="{{ user.image_url|default_if_none:'https://cdn3.vectorstock.com/i/1000x1000/34/52/user-icon-male-person-symbol-profile-avatar-sign-vector-19413452.jpg'}}"
-                                alt="{{ user.username }}'s profile image"></a>
+                                alt="{{ user.username }}'s profile image" width="38"></a>
                     </div>
                     <div class='header-button'>
                         <a href="{% url 'auth:logout' %}" class="btn btn-outline-primary"><strong>LOGOUT</strong></a>
