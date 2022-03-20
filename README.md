@@ -29,14 +29,19 @@ cat test.env >> .env
 ```
 modify .env to use correct elasticsearch hosted credentials and mysql credentials (For ENV=PRODUCTION).
 
+Setup DB
+```bash
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
 
-After pip has finished downloading the dependencies, you can load default data by running:
+Add Landscape Data Collated
 ```bash
 python3 populate.py
 python3 es_sync.py 
 ```
 
-To run the project:
+To run the project
 ```bash
 python3 manage.py runserver
 ```
