@@ -45,6 +45,7 @@ class User(AbstractUser):
         'authentication').type.items(), default=django_apps.get_app_config(
         'authentication').type['PASSWORD_LOGIN'])
     username = models.CharField(max_length=200)
+    introduction = models.CharField(max_length=400, blank=True)
     USERNAME_FIELD = 'email'
 
     def image_url(self):

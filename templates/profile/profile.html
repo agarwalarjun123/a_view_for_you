@@ -3,126 +3,120 @@
 {% load socialaccount %}
 
 {% block script_block %}
-<link rel="stylesheet" href="{% static 'css/profile.css'%}">
-<script src = "{% static 'js/homepage.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/profile.css'%}">
+    <script src = "{% static 'js/homepage.js'%}"></script>
 {% endblock %}
 
 {% block body_block %}
-<!-- Profile widget -->
-<div class="row  mx-5 py-3">
-    <!-- username and image-->
-    <div class="bg-light px-4 pb-5 cover">
-        <div class="media  align-items-end profile-head">
-            <div class="profile mr-3">
-                <img src = "{{ user.profile_image.url }}" alt="{{ user.username }}'s profile image" width="130" class="rounded mb-2 img-thumbnail">
-                <h4 class="mt-0 mb-0">{{ user.username|default:"Username" }}</h4>
-                <!--p class="small mb-4"> <i class="fas fa-map-marker-alt mr-2"></i>Brief Introduction</p-->
+    <!-- Profile widget -->
+    <div class="row  mx-5 py-3">
+        <!-- username and image-->
+        <div class="bg-light px-4 cover">
+            <div class="media  align-items-end profile-head justify-content-between">
+                <div class="profile mr-3">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item">
+                            <img width="200px" src = "{{ user.profile_image.url }}" alt="{{ user.username }}'s profile image" class="mb-3">
+                        </li>
+                        <li class="list-inline-item">
+                            <p style="font-size: x-large; " class="mt-2 mb-0">{{ user.username|default:"Username" }}</p>
+                            <p class="small" style="word-break:break-all; width:200px"> <i class="fas fa-map-marker-alt mr-2">{{ user.introduction|default:"Brief Introduction" }}</i></p>
+                        </li>
+                    </ul>
+                    <a href="{% url 'profile:edit' %}" class="btn btn-outline-primary"  style=" width:200px "> <strong>EDIT</strong></a>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- number of likes and reviews -->
-    <div class="bg-light px-4 pt-0 pb-4 d-flex justify-content-end text-center">
-        <ul class="list-inline mb-0">
-            <li class="list-inline-item">
-                <h5 class="font-weight-bold mb-0 d-block">❤{{profile_likes|length}}</h5>
-                <small class="text-muted"> <a href="#likes" class="fa fa-picture-o mr-1">Likes</a></small>
-            </li>
-            <li class="list-inline-item">
-                <h5 class="font-weight-bold mb-0 d-block"><span size="10" style="font-size:120%; color:gold">★</span>{{profile_reviews|length}}</h5>
-                <small class="text-muted"> <a href="#reviews" class="fa fa-user-circle-o mr-1">Reviews</a></small>
-            </li>
-        </ul>
-    </div>
-</div>
-
-<div class="row mx-4 py-3">
-    <!-- likes -->
-    <div id="likes" class="d-flex align-items-center justify-content-between mb-3">
-        <h5 class="mb-0">Favourites</h5>
-    </div>
-    <div class="row mx-3">
-        <!-- list likes -->
-        {% if profile_likes %}
-        <div class="card-group"></div>
-            {% for l in profile_likes %}
-                <div class="card mx-2 my-3">
-                    <a class="landscape_url" href="{% url 'landscape:show_landscape' l.slug %}">
-                        <img class="card-img-top" style="max-height: 12rem;" src="{{ l.image.url }}" alt="landscape-image">
-                        <div class="card-body">
-                            <h5 class="card-title">{{l.name}}</h5>
-                            <div class="rating"  value = '{{l.review.average_rating}}' style = 'display:inline; padding: 2px;'></div>
-                            <p class="card-text">{{l.review.count|default:"0"}} reviews</p>
-                        </div>  
-                    </a>
-                </div>
-            {% endfor %}
+        
+        <!-- number of likes and reviews -->
+        <div class="bg-light px-4 pt-0 pb-3 d-flex justify-content-end text-center">
+            <ul class="list-inline mb-0">
+                <li class="list-inline-item">
+                    <h5 class="font-weight-bold mb-0 d-block">❤{{profile_likes|length}}</h5>
+                    <h5 class="text-muted"> <a href="#likes" class="fa fa-picture-o mr-1">Likes</a></h5>
+                </li>
+                <li class="list-inline-item">
+                    <h5 class="font-weight-bold mb-0 d-block"><span size="10" style="font-size:125%; color:gold">★</span>{{profile_reviews|length}}</h5>
+                    <h5 class="text-muted"> <a href="#reviews" class="fa fa-user-circle-o mr-1">Reviews</a></h5>
+                </li>
+            </ul>
         </div>
-        {%else%}
-            <!-- if no likes, show a template for testing -->
-            <li><strong>You have no likes.</strong></li>
-            <div class="col-3"><img src="/static/images/homeImage.jpg" alt="" class="img-fluid rounded shadow-sm"><h6 class="mt-0 mb-0">landscape</h4></div>
-        {%endif%}
     </div>
-</div>
 
-<div class="row mx-4 py-3">
-<!-- reviews -->
-    <div id="reviews" class="d-flex align-items-center justify-content-between mb-3">
-        <h5 class="mb-0">Recent reviews</h5>
+    <div class="row mx-4 py-3">
+        <!-- likes -->
+        <div id="likes" class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">Favourites</h5>
+        </div>
+        <div class="row mx-3">
+            <!-- list likes -->
+            {% if profile_likes %}
+            <div class="card-group"></div>
+                {% for l in profile_likes %}
+                    <div class="card mx-2 my-3">
+                        <a class="landscape_url" href="{% url 'landscape:show_landscape' l.slug %}">
+                            <img class="card-img-top" style="max-height: 12rem;" src="{{ l.image.url }}" alt="landscape-image">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h5 class="card-title">{{l.name}}</h5>
+                                    <div class="col-9">
+                                        <p class="rating"  value = '{{l.review.average_rating}}' style = 'display:inline;'></p>
+                                        <p class="card-text">{{l.review_num}} reviews</p>
+                                    </div>
+                                    <div class="col-3">
+                                        ❤<br>
+                                        <p class="card-text">{{l.like_num}} likes</p>
+                                    </div>
+                                </div>
+                            </div>  
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            {%else%}
+                <!-- if no likes, show a template for testing -->
+                <li><strong>You have no likes.</strong></li>
+            {%endif%}
+        </div>
     </div>
-    <div class="row">
-        <!-- list reviews -->
-        {% if profile_reviews %}
-            {% for r in profile_reviews %}
-                <div class='review-result-container' style="display:block">
-                    <div class='review-result-container-content'>
-                        <p>
-                            You authored a review on
-                            <a href="{% url 'landscape:show_landscape' r.landscape_id.slug %}">{{r.landscape_id}}</a>
-                            <span style="float:right;">
-                                {{ r.visit_date|default:"Date" }}
-                            </span>
-                        </p>
-                        <h4>{{ r.title|default:"Title" }}</h4>
-                        <div class="review_row">
-                            <div class="review_column">
-                                <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
+
+    <div class="row mx-4 py-3">
+    <!-- reviews -->
+        <div id="reviews" class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="mb-0">Recent reviews</h5>
+        </div>
+        <div class="row">
+            <!-- list reviews -->
+            {% if profile_reviews %}
+                {% for r in profile_reviews %}
+                    <div class='review-result-container' style="display:block">
+                        <div class='review-result-container-content'>
+                            <p>
+                                You authored a review on
+                                <a href="{% url 'landscape:show_landscape' r.landscape_id.slug %}">{{r.landscape_id}}</a>
+                                <span style="float:right;">
+                                    {{ r.visit_date|default:"Date" }}
+                                </span>
+                            </p>
+                            <h4>{{ r.title|default:"Title" }}</h4>
+                            <div class="review_row">
+                                <div class="review_column">
+                                    <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
+                                    </div>
+                                </div>
+                                <div class="review_column">
+                                    <p>{{ r.description|default:"description" }}</p>
                                 </div>
                             </div>
-                            <div class="review_column">
-                                <p>{{ r.description|default:"description" }}</p>
-                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        {%else%}
-            <!-- if no reviews, show a template for testing -->
-            <li><strong>You have no reviews.</strong></li>
-            <div class='review-result-container' style="display:block">
-                <div class='review-result-container-content'>
-                    <p>
-                        You authored a review
-                        <span style="float:right;">
-                            {{ r.visit_date|default:"Date" }}
-                        </span>
-                    </p>
-                    <h4>{{ r.title|default:"Title" }}</h4>
-                    <div class="review_row">
-                        <div class="review_column">
-                            <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
-                            </div>
-                        </div>
-                        <div class="review_column">
-                            <p>{{ r.description|default:"description" }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {%endif%}
+                {% endfor %}
+            {%else%}
+                <!-- if no reviews, show a template for testing -->
+                <li><strong>You have no reviews.</strong></li>
+            {%endif%}
+        </div>
     </div>
-</div>
 {% endblock %}
 
 
