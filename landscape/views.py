@@ -4,12 +4,11 @@ from django.http import Http404, JsonResponse
 from django.apps import apps as django_apps
 from django.views.decorators.csrf import csrf_exempt
 from landscape.models import Landscape, Photo, Review, saved_landscapes
-from authentication.models import User
 import json
-from landscape.forms import LikeForm, ReviewForm
+from landscape.forms import ReviewForm
 from landscape.models import Landscape, Photo, Review
 from django.contrib.auth.decorators import login_required
-
+from utils import utils
 
 def index(request):
 
@@ -34,7 +33,7 @@ def show_landscape(request, landscape_name_slug):
         photos = Photo.objects.filter(landscape_id = landscape.id)
         
         for r in reviews:
-            r.rating = roundRating(r.rating)
+            r.rating = utils.roundRating(r.rating)
         liked = False
         try:
             liked = True if saved_landscapes.objects.get(landscape_id = landscape, user_id = request.user) else False
@@ -166,12 +165,7 @@ def es_search(query = '', **filters):
 
 
 
-def roundRating(rating):
-    number = int(rating*100/5)
-    hundreds = (number % 1000) // 100
-    tens = (number % 100) // 10
-    percentage = "" if hundreds == 0 else "1"
-    return percentage
+
 
 @login_required()
 @csrf_exempt

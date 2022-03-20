@@ -1,7 +1,5 @@
-from django import forms
+
 from django.shortcuts import redirect, render
-from pymysql import NULL
-from authentication.models import User
 from landscape.models import saved_landscapes, Review
 from django.contrib.auth.decorators import login_required
 
@@ -9,12 +7,13 @@ from profiles.form import ProfileForm
 
 @login_required()
 def show_profile(request):
+    context_dict = {}
     if request.method == 'GET':
         context_dict = {}
         profile_likes = set()
         try:
             profile_saved_landscapes = saved_landscapes.objects.filter(
-                user_id=request.user.id)
+                user_id=request.user.id).select_related('landscape_id')
             for like in profile_saved_landscapes:
                 #like.landscape_id is not a integer but a Landscape instance!
                 profile_likes.add(like.landscape_id)

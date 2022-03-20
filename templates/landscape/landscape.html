@@ -2,19 +2,20 @@
 {% load static %}
 
 {% block script_block %}
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-
+    <link rel="stylesheet" href="{% static 'css/jssocials-theme-flat.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/review.css' %}">
     <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/like.css' %}">
     <link rel="stylesheet" href="{% static 'css/landscape_detail_img.css' %}">
     <script src="{% static 'js/carousel.js' %}"></script>
     <script src="{% static 'js/like.js' %}"></script>
+    <script src="{% static 'js/jssocials.min.js' %}"></script>
 
 {% endblock %}
 
@@ -34,9 +35,9 @@
         <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span></div>
     </div>
         <div class="landscapes-container">
-            <div class="social-share" data-mode="prepend">
-                <a href="javascript:;" class="social-share-icon icon-heart"></a>
-            </div>
+            <div class="social-share"></div>
+            
+            {% if user.is_authenticated  %}
             {% if liked %}
             <div class="heart-btn">
                 <div class="content heart-active">
@@ -51,6 +52,7 @@
                     <span class="text">Like</span>
                 </div>
             </div>
+            {% endif %}
             {% endif %}
             
         </div>
@@ -100,7 +102,7 @@
 
         <h3>Recent reviews</h3>
 
-    <a href="{% url 'landscape:add_review' landscape.slug %}"> Write a review</a>
+    <a id = 'review-button' class="btn btn-primary" href="{% url 'landscape:add_review' landscape.slug %}"> Write a review</a>
     {% if reviews %}
     {% for r in reviews %}
     <div class='review-result-container block'>

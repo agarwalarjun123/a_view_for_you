@@ -77,3 +77,10 @@ def read_image_from_url(url):
     result = request.urlretrieve(url)    
     file_name = parse.urlparse(url).path.split('/')[-1]
     return File(open(result[0], 'rb')), file_name
+
+def roundRating(rating):
+    number = int(rating*100/5)
+    hundreds = (number % 1000) // 100
+    tens = (number % 100) // 10
+    percentage = "" if hundreds == 0 else "1"
+    return percentage
