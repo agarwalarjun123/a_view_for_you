@@ -64,7 +64,9 @@
         <div class="carousel-item">
           <div class="cards-wrapper">
           <div class="card landscape" value = "{{landscape.slug}}">
-            <img src="{{landscape.image}}" class="card-img-top" alt="landscape-image">    
+            <div  class = 'card-image-container'>
+              <img src="{{landscape.image}}" class="card-img-top" alt="landscape-image">    
+            </div>
             <div class="card-body">
               <h5 class="card-title">{{landscape.name}}</h5>
               <div class="rating" id = 'location-{{landscape.id}}' value = '{{landscape.review.average_rating}}' style = 'display:inline; padding: 2px;'></div>
