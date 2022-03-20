@@ -5,7 +5,7 @@ A Django app that provides the details of nearby and popular landscapes with pho
 
 PreRequisite
 1. python3.7
-2. elasticsearch instance running
+2. elasticsearch Instance (Copy CA certificate to root Directory)
 3. MySQL Instance (For Production, For Development Project runs with sqlite3) 
 
 Setup
@@ -27,7 +27,13 @@ Setup Environment Variables
 touch .env
 cat test.env >> .env
 ```
-modify .env to use correct elasticsearch hosted credentials and mysql credentials (For ENV=PRODUCTION).
+Note: modify .env to use correct elasticsearch hosted credentials and mysql credentials (For ENV=PRODUCTION).
+
+Collect Static Content
+```bash
+python3 manage.py collectstatic
+```
+
 
 Setup DB
 ```bash
