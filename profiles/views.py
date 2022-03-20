@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from django import forms
+from django.shortcuts import redirect, render
+from pymysql import NULL
+from authentication.models import User
 from landscape.models import saved_landscapes, Review
 from django.contrib.auth.decorators import login_required
+
+from profiles.form import ProfileForm
 
 @login_required()
 def show_profile(request):
@@ -67,3 +72,20 @@ def show_landscape_reviews(request):
         # do nothing
         context_dict['landscape_review'] = None
     return render(request, 'profile/profile.html', context=context_dict)
+
+@login_required()
+def edit_profile(request):
+    profileForm = {}
+    if request.method == 'GET':
+        profileForm = ProfileForm()
+    if request.method == 'POST':
+        profileForm = ProfileForm(request.POST)
+        if profileForm.is_valid():
+            if 'profile_image' in request.FILES:
+                request.user.profile_image = request.FILES['profile_image']
+                #request.user.introduction = "changed"
+            if not request.POST['introduction'] is None:
+                request.user.introduction = request.POST['introduction']
+            request.user.save()
+            return redirect("profile:profile")
+    return render(request, 'profile/edit_profile.html', {'form': profileForm})
