@@ -10,6 +10,16 @@
   border-radius: 5px;
   cursor: pointer;
 }
+.social-share {
+  position: absolute;
+  top: 17%;
+  display: flex;
+  right: 17%;
+}
+.jssocials-share {
+  margin-right: 5px;
+  display: inline;
+}
 .content.heart-active{
   border-color: #f9b9c4;
   background: #fbd0d8;

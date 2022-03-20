@@ -1,5 +1,13 @@
  $(document).ready(function () {
             
+    $(".social-share").jsSocials({ 
+        showLabel: false,
+        text: "Check out our landscape at viewforyou.tech",
+        url: window.location.href,
+        showCount: false,       
+        shares: ["twitter", "facebook", "linkedin","whatsapp"]
+    });
+
             $('.content').click(function () {
 
                 const url = new URL(window.location.href)
