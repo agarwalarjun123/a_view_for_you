@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from landscape.models import saved_landscapes, Review
-from landscape.views import roundRating
+from utils.utils import roundRating
 from django.contrib.auth.decorators import login_required
 
 @login_required()

@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block script_block %}
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"/>
     <script type="text/javascript"
@@ -37,6 +36,7 @@
             <div class="social-share" data-mode="prepend">
                 <a href="javascript:;" class="social-share-icon icon-heart"></a>
             </div>
+            {% if user.is_authenticated  %}
             {% if liked %}
             <div class="heart-btn">
                 <div class="content heart-active">
@@ -51,6 +51,7 @@
                     <span class="text">Like</span>
                 </div>
             </div>
+            {% endif %}
             {% endif %}
             
         </div>
