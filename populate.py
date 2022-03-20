@@ -1,9 +1,10 @@
 import os
 import django
-from django.apps import apps as django_apps
 # setting up environment and loading up models
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'a_view_for_you.settings')
 django.setup()
+from landscape.models import *
+from django.apps import apps as django_apps
 from utils.utils import read_image_from_url
 from landscape.models import *
 

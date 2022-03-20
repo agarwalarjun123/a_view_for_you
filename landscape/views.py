@@ -5,7 +5,7 @@ from django.apps import apps as django_apps
 from django.views.decorators.csrf import csrf_exempt
 from landscape.models import Landscape, Photo, Review, saved_landscapes
 import json
-from landscape.forms import LikeForm, ReviewForm
+from landscape.forms import ReviewForm
 from landscape.models import Landscape, Photo, Review
 from django.contrib.auth.decorators import login_required
 from utils import utils

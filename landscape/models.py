@@ -53,7 +53,7 @@ class Photo(Base):
     image = models.ImageField(upload_to='landscapes', null=True, blank=True)
 
 
-class saved_landscapes(models.Model):
+class saved_landscapes(Base):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     landscape_id = models.ForeignKey(Landscape, on_delete=models.CASCADE, null=True)
 

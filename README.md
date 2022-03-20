@@ -3,30 +3,42 @@
 Context
 A Django app that provides the details of nearby and popular landscapes with photographs, user reviews and filter tags.
 
+PreRequisite
+1. python3.7
+2. elasticsearch instance running
+3. MySQL Instance (For Production, For Development Project runs with sqlite3) 
+
 Setup
 The first step is to clone the repository
-```
-$ git clone https://github.com/agarwalarjun123/a_view_for_you.git
-$ cd a_view_for_you
+```bash
+git clone https://github.com/agarwalarjun123/a_view_for_you.git
+cd a_view_for_you
 ```
 
 Secondly, install the dependencies
-```
-$ pip install -r requirements.txt
+```bash
+python3 -m virtual venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Since we are using elasticsearch for the searching, it is necessary to install and run it
+Setup Environment Variables
+```bash
+touch .env
+cat test.env >> .env
+```
+modify .env to use correct elasticsearch hosted credentials and mysql credentials (For ENV=PRODUCTION).
+
 
 After pip has finished downloading the dependencies, you can load default data by running:
-```
-$ python3 es_sync.py 
-$ python3 populate.py
+```bash
+python3 populate.py
+python3 es_sync.py 
 ```
 
 To run the project:
-```
-$ python3 manage.py runserver
-
+```bash
+python3 manage.py runserver
 ```
 ## Walkthrough
 ###### Homepage
