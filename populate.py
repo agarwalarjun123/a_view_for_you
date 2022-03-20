@@ -265,20 +265,20 @@ def populate_landscapes():
             "latitude": 56.7709,
             "longitude": -4.9795,
             "reviews":[]
-        },
-        {
-            "name": "The Devils Pulpit",
-            "description": "Waterfall & stream flowing between towering rock formations, accessed by a steep stone staircase.",
-            "address": "Glasgow, G63 9QJ",
-            "images": ["https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1"],
-            "activities": ["hiking"],
-            "accessibilities": [""],
-            "image": "https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1",
+    },
+    {
+        "name": "The Devils Pulpit",
+        "description": "Waterfall & stream flowing between towering rock formations, accessed by a steep stone staircase.",
+        "address": "Glasgow, G63 9QJ",
+        "images": ["https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1"],
+        "activities": ["hiking"],
+        "accessibilities": [""],
+        "image": "https://i2.wp.com/naturesoffgridtreasures.com/wp-content/uploads/2017/09/naslovna.jpg?fit=1500%2C720&ssl=1",
 
-            "latitude": 56.0344,
-            "longitude": -4.4138,
-            "reviews":[]
-        }
+        "latitude": 56.0344,
+        "longitude": -4.4138,
+        "reviews":[]
+    }
     ]
     for landscape in landscapes:
         landscape_doc = {key: landscape[key] for key in list(set(landscape.keys()) & set(
