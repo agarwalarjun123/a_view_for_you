@@ -2,59 +2,61 @@
 {% load static %}
 
 {% block script_block %}
-<link rel="stylesheet" href="{% static 'css/search.css'%}">
-<script>
-    let q = "{{ q }}";
-</script>
-<script src="{% static 'js/search.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <script>
+        let q = "{{ q }}";
+    </script>
+    <script src="{% static 'js/search.js' %}"></script>
 {% endblock %}
 
 {% block body_block %}
-<div class="mb-2">
-    <div class="search-container">
-        <div class = "collapse" id='search-container-filter-container'>
-            <div class='search-container-filter'>
-                <h6>Activites</h6>
-                {% for activity in activities %}
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input activities" type="checkbox" value="{{activity.name}}" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        {{activity.display_name}}
-                    </label>
+    <div class="mb-2">
+        <div class="search-container">
+            <div class="collapse" id='search-container-filter-container'>
+                <div class='search-container-filter'>
+                    <h6>Activites</h6>
+                    {% for activity in activities %}
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input activities" type="checkbox" value="{{ activity.name }}"
+                                   id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ activity.display_name }}
+                            </label>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
+                <div class='search-container-filter'>
+                    <h6>Accessibilities</h6>
+                    {% for access in accessibilities %}
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input accessibilities" type="checkbox" value="{{ access.name }}"
+                                   id="flexCheckDefault">
+                            <label class="form-check-label" for="inputlabel">
+                                {{ access.display_name }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-            <div class='search-container-filter'>
-                <h6>Accessibilities</h6>
-                {% for access in accessibilities %}
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input accessibilities" type="checkbox" value="{{access.name}}" id="flexCheckDefault">
-                        <label class="form-check-label" for="inputlabel">
-                            {{access.display_name}}
-                        </label>
-                    </div>
-                {% endfor %}
+
+
+            <div class="search-box">
+                <div id='search-box-container'>
+                    <input type="text" class="form-control" id="query">
+                </div>
+                <div>
+                    <button id='search-button-search' class='btn btn-primary' value='SEARCH'>SEARCH</button>
+                </div>
             </div>
+
         </div>
-
-
-        <div class="search-box">
-            <div id='search-box-container'>
-                <input type="text" class="form-control" id="query">
-            </div>
-            <div>
-                <button id='search-button-search' class='btn btn-primary' value='SEARCH'>SEARCH</button>
-            </div>
+        <div class="search-results">
         </div>
-
     </div>
-    <div class="search-results">
-    </div>
-</div>
 
 
-<ul>
-    <!-- {% if landscapes %}
+    <ul>
+        <!-- {% if landscapes %}
         {% for l in landscapes %}
             <li>
                 <a href="{% url 'landscape:show_landscape' l.slug %}">{{ l.name }}</a>
@@ -63,5 +65,5 @@
     {% else %}
         <li><strong>There are no landscapes present.</strong></li>
     {% endif %} -->
-</ul>
+    </ul>
 {% endblock %}

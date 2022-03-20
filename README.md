@@ -43,7 +43,7 @@ python3 manage.py migrate
 
 Add Landscape Data Collated
 ```bash
-python3 populate.py
+python3 population_script.py
 python3 es_sync.py 
 ```
 

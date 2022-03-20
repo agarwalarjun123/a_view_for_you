@@ -4,6 +4,7 @@ from landscape.models import Landscape, saved_landscapes, Review
 from utils.utils import roundRating
 from django.contrib.auth.decorators import login_required
 
+
 @login_required()
 def show_profile(request):
     context_dict = {}
@@ -14,7 +15,7 @@ def show_profile(request):
             profile_saved_landscapes = saved_landscapes.objects.filter(
                 user_id=request.user.id).select_related('landscape_id')
             for like in profile_saved_landscapes:
-                #like.landscape_id is not a integer but a Landscape instance!
+                # like.landscape_id is not a integer but a Landscape instance!
                 profile_likes.add(like.landscape_id)
             context_dict['profile_likes'] = profile_likes
         except saved_landscapes.DoesNotExist:
@@ -30,7 +31,7 @@ def show_profile(request):
             context_dict['profile_reviews'] = None
 
     return render(request, 'profile/profile.html', context=context_dict)
-        #return render(request, 'profile/profile.html')
+    # return render(request, 'profile/profile.html')
 
 # try to filter landscapes liked by user
 # @login_required()
