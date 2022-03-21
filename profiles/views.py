@@ -1,7 +1,6 @@
 from django.shortcuts import redirect, render
 from landscape.models import saved_landscapes, Review
 from django.contrib.auth.decorators import login_required
-
 from profiles.form import ProfileForm
 
 @login_required()

@@ -4,7 +4,7 @@ Context
 A Django app that provides the details of nearby and popular landscapes with photographs, user reviews and filter tags.
 
 PreRequisite
-1. python3.7
+1. python 3.8
 2. elasticsearch Instance (Copy CA certificate to root Directory)
 3. MySQL Instance (For Production, For Development Project runs with sqlite3) 
 

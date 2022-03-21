@@ -32,8 +32,8 @@ def show_landscape(request, landscape_name_slug):
             landscape_id=landscape.id).order_by('-visit_date')[:5]
         photos = Photo.objects.filter(landscape_id=landscape.id)
 
-        for r in reviews:
-            r.rating = utils.roundRating(r.rating)
+        #for r in reviews:
+        #    r.rating = utils.roundRating(r.rating)
         liked = False
         try:
             liked = True if saved_landscapes.objects.get(landscape_id=landscape, user_id=request.user) else False
@@ -70,6 +70,7 @@ def add_review(request, landscape_name_slug):
             review = form.save(commit=False)
             review.landscape_id = landscape
             review.user_id = request.user
+            review.rating=float(request.POST['rating'])
             review.save()
 
             for image in images:
