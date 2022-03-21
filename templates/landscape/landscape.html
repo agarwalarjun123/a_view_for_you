@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/like.css' %}">
     <link rel="stylesheet" href="{% static 'css/landscape_detail_img.css' %}">
+    <script src = "{% static 'js/homepage.js'%}"></script>
     <script src="{% static 'js/carousel.js' %}"></script>
     <script src="{% static 'js/like.js' %}"></script>
     <script src="{% static 'js/jssocials.min.js' %}"></script>
@@ -117,8 +118,7 @@
                     <h4>{{ r.title }}</h4>
                     <div class="review_row">
                         <div class="review_column">
-                            <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
-                            </div>
+                            <div class="rating"  value = '{{r.rating}}' style = 'display:inline; padding: 2px;'></div>
                         </div>
                         <div class="review_column">
                             <p>{{ r.description }}</p>
