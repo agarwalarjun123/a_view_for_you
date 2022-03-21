@@ -16,7 +16,7 @@
                 <div class="profile mr-3">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <img width="200px" src = "{{ user.profile_image.url }}" alt="{{ user.username }}'s profile image" class="mb-3">
+                            <img width="200px" src="{{ user.image_url|default_if_none:'https://cdn3.vectorstock.com/i/1000x1000/34/52/user-icon-male-person-symbol-profile-avatar-sign-vector-19413452.jpg' }}" alt="{{ user.username }}'s profile image" class="mb-3">
                         </li>
                         <li class="list-inline-item">
                             <p style="font-size: x-large; " class="mt-2 mb-0">{{ user.username|default:"Username" }}</p>
