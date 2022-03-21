@@ -1,8 +1,6 @@
-
 from django.shortcuts import redirect, render
 from landscape.models import saved_landscapes, Review
 from django.contrib.auth.decorators import login_required
-
 from profiles.form import ProfileForm
 
 @login_required()
@@ -15,7 +13,7 @@ def show_profile(request):
             profile_saved_landscapes = saved_landscapes.objects.filter(
                 user_id=request.user.id).select_related('landscape_id')
             for like in profile_saved_landscapes:
-                #like.landscape_id is not a integer but a Landscape instance!
+                # like.landscape_id is not a integer but a Landscape instance!
                 profile_likes.add(like.landscape_id)
             #profile_likes is a set of landscapes
             context_dict['profile_likes'] = profile_likes

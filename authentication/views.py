@@ -34,6 +34,7 @@ def login(request):
             'authentication').INVALID_CREDENTIALS_MESSAGE
     return render(request, 'authentication/login.html', {"error_message": error_message})
 
+
 @login_required()
 def logout(request):
     logout_session(request)

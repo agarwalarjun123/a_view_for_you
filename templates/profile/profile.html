@@ -48,9 +48,9 @@
         <div id="likes" class="d-flex align-items-center justify-content-between mb-3">
             <h5 class="mb-0">Favourites</h5>
         </div>
+        {% if profile_likes %}
         <div class="row mx-3">
             <!-- list likes -->
-            {% if profile_likes %}
             <div class="card-group"></div>
                 {% for l in profile_likes %}
                     <div class="card mx-2 my-3">
@@ -73,11 +73,11 @@
                     </div>
                 {% endfor %}
             </div>
-            {%else%}
-                <!-- if no likes, show a template for testing -->
-                <li><strong>You have no likes.</strong></li>
-            {%endif%}
         </div>
+        {%else%}
+            <!-- if no likes, show a template for testing -->
+            <li><strong>You have no likes.</strong></li>
+        {%endif%}
     </div>
 
     <div class="row mx-4 py-3">
@@ -101,8 +101,7 @@
                             <h4>{{ r.title|default:"Title" }}</h4>
                             <div class="review_row">
                                 <div class="review_column">
-                                    <div><span class="stars-container stars-{{ r.rating }}">★★★★★{{ r.rating }}</span>
-                                    </div>
+                                    <div class="rating"  value = '{{r.rating}}' style = 'display:inline; padding: 2px;'></div>
                                 </div>
                                 <div class="review_column">
                                     <p>{{ r.description|default:"description" }}</p>
